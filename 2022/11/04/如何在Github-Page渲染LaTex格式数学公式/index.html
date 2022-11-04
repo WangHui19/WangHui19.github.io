@@ -20,28 +20,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wanghui19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="这个博客是用来记录一下平时学到的技术知识，偶尔也会记录一些其他的东西。作为一名计算机专业学生，没有一个自己的博客怎么能行！博客虽然是公开的，但是也不会有多少人看，主要还是用来进行个人记录。">
+    <meta name="description" content="今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。 在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。 解决方案：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇博文">
-<meta property="og:url" content="https://wanghui19.github.io/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/index.html">
+<meta property="og:title" content="如何在Github Page渲染LaTex格式数学公式">
+<meta property="og:url" content="https://wanghui19.github.io/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Mr.Wang的博客">
-<meta property="og:description" content="这个博客是用来记录一下平时学到的技术知识，偶尔也会记录一些其他的东西。作为一名计算机专业学生，没有一个自己的博客怎么能行！博客虽然是公开的，但是也不会有多少人看，主要还是用来进行个人记录。">
+<meta property="og:description" content="今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。 在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。 解决方案：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-21T08:19:39.000Z">
-<meta property="article:modified_time" content="2022-10-24T09:30:03.363Z">
+<meta property="article:published_time" content="2022-11-04T12:27:16.000Z">
+<meta property="article:modified_time" content="2022-11-04T13:54:34.774Z">
 <meta property="article:author" content="王辉">
-<meta property="article:tag" content="日常">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="Latex">
+<meta property="article:tag" content="数学公式">
+<meta property="article:tag" content="MathJax">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://wanghui19.github.io/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">
+<link rel="canonical" href="https://wanghui19.github.io/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wanghui19.github.io/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/","path":"2022/10/21/我的第一篇博文/","title":"我的第一篇博文"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wanghui19.github.io/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/","path":"2022/11/04/如何在Github-Page渲染LaTex格式数学公式/","title":"如何在Github Page渲染LaTex格式数学公式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>我的第一篇博文 | Mr.Wang的博客</title>
+<title>如何在Github Page渲染LaTex格式数学公式 | Mr.Wang的博客</title>
   
 
 
@@ -105,7 +108,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -118,6 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">解决方案：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="nav-number">1.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="nav-number">1.2.</span> <span class="nav-text">第二种</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -180,7 +184,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wanghui19.github.io/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">
+    <link itemprop="mainEntityOfPage" href="https://wanghui19.github.io/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -193,12 +197,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="我的第一篇博文 | Mr.Wang的博客">
+      <meta itemprop="name" content="如何在Github Page渲染LaTex格式数学公式 | Mr.Wang的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          我的第一篇博文
+          如何在Github Page渲染LaTex格式数学公式
         </h1>
 
         <div class="post-meta-container">
@@ -208,15 +212,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-10-21 16:19:39" itemprop="dateCreated datePublished" datetime="2022-10-21T16:19:39+08:00">2022-10-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-24 17:30:03" itemprop="dateModified" datetime="2022-10-24T17:30:03+08:00">2022-10-24</time>
+      <time title="创建时间：2022-11-04 20:27:16 / 修改时间：21:54:34" itemprop="dateCreated datePublished" datetime="2022-11-04T20:27:16+08:00">2022-11-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -224,7 +222,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">日常</span></a>
+          <a href="/categories/blog/" itemprop="url" rel="index"><span itemprop="name">blog</span></a>
         </span>
     </span>
 
@@ -238,7 +236,29 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>这个博客是用来记录一下平时学到的技术知识，偶尔也会记录一些其他的东西。<br>作为一名计算机专业学生，没有一个自己的博客怎么能行！<br>博客虽然是公开的，但是也不会有多少人看，主要还是用来进行个人记录。</p>
+        <p>今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。</p>
+<p>在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。</p>
+<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><span id="more"></span>
+<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p>在搜索结果中，很多的CSDN上，都说是chrome浏览器中没有对应插件导致。既然这样，那就下插件！！！</p>
+<ol>
+<li>MathJax Plugin for Github</li>
+<li>Math Anywhere</li>
+</ol>
+<p>两个选一个就行，我都下载了，并且启用了。<br>不能说有用，只能说一点用也没有。</p>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p>采用外挂Javascript的方案支持跨浏览器的内容渲染，可以用MathJax渲染。方法如下：</p>
+<ol>
+<li><p>设置markdown引擎为kramdown，方法为在_config.yml里添加：(中间有空格)</p>
+<p>markdown: kramdown</p>
+</li>
+<li><p>在md文件开始输入以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/x-mathjax-config&quot;&gt;</span><br><span class="line">        MathJax.Hub.Config(&#123;</span><br><span class="line">            tex2jax: &#123;</span><br><span class="line">            skipTags: [&#x27;script&#x27;, &#x27;noscript&#x27;, &#x27;style&#x27;, &#x27;textarea&#x27;, &#x27;pre&#x27;],</span><br><span class="line">            inlineMath: [[&#x27;$&#x27;,&#x27;$&#x27;]]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+<p>然后正文就可以写公式：<code>$e = m c^2$</code> 这样就能正确显示了, $e &#x3D; m c^2$。</p>
+</li>
+</ol>
+<p>这次解决了我的问题。公式能够成功显示了。<br></p>
+<p>但后面仍然需要注意的地方是：</p>
+<p><code>$&#123;a&#125;_&#123;1&#125;$</code> 这种仍然没办法显示，因为只要 <code>_</code> 前面有 <code>&#123;&#125;</code> ，那就必须使用 <code>\</code> 进行转义，也就是变成 <code>$&#123;a&#125;\_&#123;1&#125;$</code> 才能正常显示。</p>
+<p>但出现了新问题，对于<code>$&#123;a&#125;_&#123;1&#125;$</code>，没有办法将公式的Latex写法显示在markdown上，会直接被转换为公式形式展示。</p>
 
     </div>
 
@@ -248,18 +268,21 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag"># 日常</a>
+              <a href="/tags/blog/" rel="tag"># blog</a>
+              <a href="/tags/Latex/" rel="tag"># Latex</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" rel="tag"># 数学公式</a>
+              <a href="/tags/MathJax/" rel="tag"># MathJax</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2022/11/04/HGNN-AC/" rel="prev" title="【论文阅读】Heterogeneous Graph Neural Network via Attribute Completion">
+                  <i class="fa fa-chevron-left"></i> 【论文阅读】Heterogeneous Graph Neural Network via Attribute Completion
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/10/24/q1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" rel="next" title="q1-两数之和">
-                  q1-两数之和 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
