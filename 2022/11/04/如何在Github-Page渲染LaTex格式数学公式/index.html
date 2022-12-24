@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wanghui19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。 在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。 解决方案：">
+    <meta name="description" content="今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。 在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。 解决方案：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何在Github Page渲染LaTex格式数学公式">
 <meta property="og:url" content="https://wanghui19.github.io/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Mr.Wang的博客">
-<meta property="og:description" content="今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。 在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。 解决方案：">
+<meta property="og:description" content="今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。 在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。 解决方案：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-04T12:27:16.000Z">
 <meta property="article:modified_time" content="2022-11-04T14:01:36.028Z">
@@ -121,7 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">解决方案：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="nav-number">1.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="nav-number">1.2.</span> <span class="nav-text">第二种</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">解决方案：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="nav-number">1.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="nav-number">1.2.</span> <span class="nav-text">第二种</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -238,30 +238,16 @@
     <div class="post-body" itemprop="articleBody">
         <p>今天写博客的时候遇到了显示数学公式的问题，不想用图片显示，想到用Latex语法写。</p>
 <p>在VSCode中写Markdown的时候，预览公式显示很正常，但是上传到github page不能显示。让人非常难受，于是上网搜索解决方法。</p>
-<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><span id="more"></span>
-<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p>在搜索结果中，很多的CSDN上，都说是chrome浏览器中没有对应插件导致。既然这样，那就下插件！！！</p>
-<ol>
-<li>MathJax Plugin for Github</li>
-<li>Math Anywhere</li>
-</ol>
-<p>两个选一个就行，我都下载了，并且启用了。<br>不能说有用，只能说一点用也没有。</p>
-<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p>采用外挂Javascript的方案支持跨浏览器的内容渲染，可以用MathJax渲染。方法如下：</p>
-<ol>
-<li><p>设置markdown引擎为kramdown，方法为在_config.yml里添加：(中间有空格)</p>
-<p>markdown: kramdown</p>
-</li>
-<li><p>在md文件开始输入以下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/x-mathjax-config&quot;&gt;</span><br><span class="line">        MathJax.Hub.Config(&#123;</span><br><span class="line">            tex2jax: &#123;</span><br><span class="line">            skipTags: [&#x27;script&#x27;, &#x27;noscript&#x27;, &#x27;style&#x27;, &#x27;textarea&#x27;, &#x27;pre&#x27;],</span><br><span class="line">            inlineMath: [[&#x27;$&#x27;,&#x27;$&#x27;]]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
-<p>然后正文就可以写公式：<code>$e = m c^2$</code> 这样就能正确显示了。</p>
-</li>
-</ol>
+<h2 id="解决方案">解决方案：</h2>
+<span id="more"></span>
+<h3 id="第一种">第一种</h3>
+<p>在搜索结果中，很多的CSDN上，都说是chrome浏览器中没有对应插件导致。既然这样，那就下插件！！！ 1. MathJax Plugin for Github 2. Math Anywhere</p>
+<p>两个选一个就行，我都下载了，并且启用了。 不能说有用，只能说一点用也没有。</p>
+<h3 id="第二种">第二种</h3>
+<p>采用外挂Javascript的方案支持跨浏览器的内容渲染，可以用MathJax渲染。方法如下： 1. 设置markdown引擎为kramdown，方法为在_config.yml里添加：(中间有空格)</p>
+<p>markdown: kramdown 2. 在md文件开始输入以下代码： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/x-mathjax-config&quot;&gt;</span><br><span class="line">        MathJax.Hub.Config(&#123;</span><br><span class="line">            tex2jax: &#123;</span><br><span class="line">            skipTags: [&#x27;script&#x27;, &#x27;noscript&#x27;, &#x27;style&#x27;, &#x27;textarea&#x27;, &#x27;pre&#x27;],</span><br><span class="line">            inlineMath: [[&#x27;$&#x27;,&#x27;$&#x27;]]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure> 然后正文就可以写公式：<code>$e = m c^2$</code> 这样就能正确显示了。</p>
 <p>这次解决了我的问题。公式能够成功显示了。<br></p>
-<p>参考链接：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/36302775">https://zhuanlan.zhihu.com/p/36302775</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/26275645/how-to-support-latex-in-github-pages">https://stackoverflow.com/questions/26275645/how-to-support-latex-in-github-pages</a></li>
-<li><a target="_blank" rel="noopener" href="https://zybuluo.com/anboqing/note/53250">https://zybuluo.com/anboqing/note/53250</a></li>
-</ul>
+<p>参考链接： * https://zhuanlan.zhihu.com/p/36302775 * https://stackoverflow.com/questions/26275645/how-to-support-latex-in-github-pages * https://zybuluo.com/anboqing/note/53250</p>
 <p>但后面仍然需要注意的地方是：</p>
 <p><code>$&#123;a&#125;_&#123;1&#125;$</code> 这种仍然没办法显示，因为只要 <code>_</code> 前面有 <code>&#123;&#125;</code> ，那就必须使用 <code>\</code> 进行转义，也就是变成 <code>$&#123;a&#125;\_&#123;1&#125;$</code> 才能正常显示。</p>
 <p>但出现了新问题，对于<code>$&#123;a&#125;_&#123;1&#125;$</code>，没有办法将公式的Latex写法显示在markdown上，会直接被转换为公式形式展示。</p>
@@ -337,6 +323,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

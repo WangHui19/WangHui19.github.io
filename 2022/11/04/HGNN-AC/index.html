@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wanghui19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="MathJax.Hub.Config({             tex2jax: {             skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],             inlineMath: [[&#39;$&#39;,&#39;$&#39;]]             }         });">
+    <meta name="description" content="MathJax.Hub.Config({             tex2jax: {             skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],             inlineMath: [[&#39;$&#39;,&#39;$&#39;]]             }         });">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【论文阅读】Heterogeneous Graph Neural Network via Attribute Completion">
 <meta property="og:url" content="https://wanghui19.github.io/2022/11/04/HGNN-AC/index.html">
 <meta property="og:site_name" content="Mr.Wang的博客">
-<meta property="og:description" content="MathJax.Hub.Config({             tex2jax: {             skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],             inlineMath: [[&#39;$&#39;,&#39;$&#39;]]             }         });">
+<meta property="og:description" content="MathJax.Hub.Config({             tex2jax: {             skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],             inlineMath: [[&#39;$&#39;,&#39;$&#39;]]             }         });">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wanghui19.github.io/2022/11/04/HGNN-AC/fig0.png">
 <meta property="og:image" content="https://wanghui19.github.io/2022/11/04/HGNN-AC/fig1.png">
@@ -130,7 +130,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">二、概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%82%E8%B4%A8%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">1.异质图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%BC%82%E8%B4%A8%E5%9B%BE%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%AE%8C%E5%85%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">2.异质图中的不完全属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BC%82%E8%B4%A8%E5%9B%BEEmbedding"><span class="nav-number">2.3.</span> <span class="nav-text">3.异质图Embedding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="nav-number">3.1.</span> <span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8B%93%E6%89%91Embedding%E7%9A%84%E9%A2%84%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.2.</span> <span class="nav-text">2.拓扑Embedding的预学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8attention%E6%9C%BA%E5%88%B6%E8%BF%9B%E8%A1%8C%E5%B1%9E%E6%80%A7%E8%A1%A5%E5%85%A8"><span class="nav-number">3.3.</span> <span class="nav-text">3.使用attention机制进行属性补全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B7%B2%E6%9C%89%E5%B1%9E%E6%80%A7%E7%9A%84Drop"><span class="nav-number">3.4.</span> <span class="nav-text">4.已有属性的Drop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%B8%8EHIN%E6%A8%A1%E5%9E%8B%E7%BB%93%E5%90%88"><span class="nav-number">3.5.</span> <span class="nav-text">5.与HIN模型结合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">四、实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">4.1.</span> <span class="nav-text">1.数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.2.</span> <span class="nav-text">2.实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BB%93%E6%9E%9C%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">4.3.</span> <span class="nav-text">3.结果可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%AA%E4%BE%8B%E7%A0%94%E7%A9%B6"><span class="nav-number">4.4.</span> <span class="nav-text">4.个例研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%8F%82%E6%95%B0%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.5.</span> <span class="nav-text">5.参数实验</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">三、方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%AE%9E%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text">四、实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">1.数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">3.结果可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E4%BE%8B%E7%A0%94%E7%A9%B6"><span class="nav-number">3.3.</span> <span class="nav-text">4.个例研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%AE%9E%E9%AA%8C"><span class="nav-number">3.4.</span> <span class="nav-text">5.参数实验</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -252,8 +252,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
         MathJax.Hub.Config({
             tex2jax: {
             skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
@@ -262,68 +262,53 @@
         });
     </script>
 </head>
-
-<p><img src="/2022/11/04/HGNN-AC/fig0.png"></p>
+<p><img src="fig0.png" /></p>
 <p>论文标题：基于属性补全的异质图神经网络</p>
-<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.1145/3442381.3449914">https://doi.org/10.1145/3442381.3449914</a></p>
-<p>论文发表：WWW2021</p>
-<span id="more"></span>
-
-<h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>异质图拥有多种类型的节点和边，相比于同质图包含更多的信息，能够更好的描述现实世界。已经有许多研究采用GNN的方法针对异质图进行研究，取得了很好的成果。但这些基于GNN的异质图模型需要所有的节点都具有属性特征。现实中，这种要求并不能够满足。</p>
+<p>论文链接：https://doi.org/10.1145/3442381.3449914</p>
+<p>论文发表：WWW2021 <span id="more"></span></p>
+<h2 id="一概述">一、概述</h2>
+<p>异质图拥有多种类型的节点和边，相比于同质图包含更多的信息，能够更好的描述现实世界。已经有许多研究采用GNN的方法针对异质图进行研究，取得了很好的成果。但这些基于GNN的异质图模型需要所有的节点都具有属性特征。现实中，这种要求并不能够满足。</p>
 <p>因为某些原因，一些节点并没有属性信息，例如带有个人敏感信息。在异质图中更加明显，我们通常不能得到所有类型节点的属性特征，这也影响到了GNN-based模型的性能。<br></p>
-<p>我们将异质图的属性缺失分为两类:</p>
-<ol>
-<li>需要被分析的节点属性缺失，例如下图中DBLP数据集的author类型节点；</li>
-<li>不需要被分析的节点属性缺失，例如下图中IMDB数据集的actor类型节点。</li>
-</ol>
-<p><img src="/2022/11/04/HGNN-AC/fig1.png"></p>
+<p>我们将异质图的属性缺失分为两类: 1. 需要被分析的节点属性缺失，例如下图中DBLP数据集的author类型节点； 2. 不需要被分析的节点属性缺失，例如下图中IMDB数据集的actor类型节点。</p>
+<p><img src="fig1.png" /></p>
 <p>上图中只有DBLP的paper类型节点和IMDB的movie类型节点有属性，其余节点的属性缺失，我们需要对有图中有颜色的节点做预测。虽然有些节点没有属性，但是这些没有属性的节点会连接到有属性的节点。以往的研究都是采用手工的方式处理异质图中属性缺失的问题。在代码中，往往是采用一个one-hot向量来表示，这会提供一些无效的信息。</p>
 <p>因此，本文提出一种<strong>节点属性补全</strong>的模型HGNN-AC。<strong>本文以节点间的拓扑关系为指导，通过对属性节点的属性进行加权聚合来补全无属性节点的属性</strong>。</p>
-<p>HGNN-AC首先使用HIN-Embedding的方法来通过节点的拓扑关系来获取节点embedding，然后在进行加权聚合时通过attention机制来计算节点embedding之间的注意力系数，来区分不同节点的贡献。这种补全机制可以轻松的和现有的HIN模型结合，实现端到端训练。<br></p>
-<h2 id="二、概念"><a href="#二、概念" class="headerlink" title="二、概念"></a>二、概念</h2><h3 id="1-异质图"><a href="#1-异质图" class="headerlink" title="1.异质图"></a>1.异质图</h3><p>一个异质图表示为 $\mathcal{G}(\mathcal{V}, \mathcal{E}, F, R, \varphi, \phi)$ ，其中 $\mathcal{V}$ 和 $\mathcal{E}$ 分别表示节点和边的集合， $F$ 和 $R$ 分别代表节点类型集合和边的类型集合，满足 $|F|+|R|&gt;2$ ，每个节点 $i \in \mathcal{V}$ 关联一个节点类型映射函数 $\varphi: \mathcal{V} \rightarrow F$ ，每条边 $e \in \mathcal{E}$ 关联一个边类型映射函数 $\varphi: \mathcal{E} \rightarrow R$ 。</p>
-<h3 id="2-异质图中的不完全属性"><a href="#2-异质图中的不完全属性" class="headerlink" title="2.异质图中的不完全属性"></a>2.异质图中的不完全属性</h3><p>给定一个异质图 $\mathcal{G}(\mathcal{V}, \mathcal{E}, F, R, \varphi, \phi), X$ 代表节点属性。节点属性不完全意味着 $\exists F^{\prime} \subset F$ 且 $F^{\prime} \neq \varnothing$ ，其中 $i \in \mathcal{V}$ 中关联节点类型映射函数 $\varphi: \mathcal{V} \rightarrow F^{\prime}$ 的节点没有属性。也就是说，本文讨论的范围是异质图中要么某种类型的所有节点全都有属性，要么某种类型的所有节点全部属性缺失，不存在某种类型既包含有属性节点也包含无属性节点。</p>
-<h3 id="3-异质图Embedding"><a href="#3-异质图Embedding" class="headerlink" title="3.异质图Embedding"></a>3.异质图Embedding</h3><p>给定一个异质图 $\mathcal{G}$ ，任务是学习一个 $d$ 维的节点表示 $h_{v} \in \mathbb{R}^{d},v \in \mathcal{V}$ 来捕捉 $\mathcal{G}$ 丰富的结构和语义信息，其中 $d \ll|\mathcal{V}|$ 。</p>
+<p>HGNN-AC首先使用HIN-Embedding的方法来通过节点的拓扑关系来获取节点embedding，然后在进行加权聚合时通过attention机制来计算节点embedding之间的注意力系数，来区分不同节点的贡献。这种补全机制可以轻松的和现有的HIN模型结合，实现端到端训练。<br> ## 二、概念 ### 1.异质图 一个异质图表示为 <span class="math inline">\(\mathcal{G}(\mathcal{V}, \mathcal{E}, F, R, \varphi, \phi)\)</span> ，其中 <span class="math inline">\(\mathcal{V}\)</span> 和 <span class="math inline">\(\mathcal{E}\)</span> 分别表示节点和边的集合， <span class="math inline">\(F\)</span> 和 <span class="math inline">\(R\)</span> 分别代表节点类型集合和边的类型集合，满足 <span class="math inline">\(|F|+|R|&gt;2\)</span> ，每个节点 <span class="math inline">\(i \in \mathcal{V}\)</span> 关联一个节点类型映射函数 <span class="math inline">\(\varphi: \mathcal{V} \rightarrow F\)</span> ，每条边 <span class="math inline">\(e \in \mathcal{E}\)</span> 关联一个边类型映射函数 <span class="math inline">\(\varphi: \mathcal{E} \rightarrow R\)</span> 。 ### 2.异质图中的不完全属性 给定一个异质图 <span class="math inline">\(\mathcal{G}(\mathcal{V}, \mathcal{E}, F, R, \varphi, \phi), X\)</span> 代表节点属性。节点属性不完全意味着 <span class="math inline">\(\exists F^{\prime} \subset F\)</span> 且 <span class="math inline">\(F^{\prime} \neq \varnothing\)</span> ，其中 <span class="math inline">\(i \in \mathcal{V}\)</span> 中关联节点类型映射函数 <span class="math inline">\(\varphi: \mathcal{V} \rightarrow F^{\prime}\)</span> 的节点没有属性。也就是说，本文讨论的范围是异质图中要么某种类型的所有节点全都有属性，要么某种类型的所有节点全部属性缺失，不存在某种类型既包含有属性节点也包含无属性节点。 ### 3.异质图Embedding 给定一个异质图 <span class="math inline">\(\mathcal{G}\)</span> ，任务是学习一个 <span class="math inline">\(d\)</span> 维的节点表示 <span class="math inline">\(h_{v} \in \mathbb{R}^{d},v \in \mathcal{V}\)</span> 来捕捉 <span class="math inline">\(\mathcal{G}\)</span> 丰富的结构和语义信息，其中 <span class="math inline">\(d \ll|\mathcal{V}|\)</span> 。</p>
 <p>下表总结了本文所使用的符号表示：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig2.png"></p>
-<h2 id="三、方法"><a href="#三、方法" class="headerlink" title="三、方法"></a>三、方法</h2><p>HGNN-AC遵循的原则是一个无属性节点 $v \in \mathcal{V}^{-}$ 的生成属性应该来自有属性节点 $v \in \mathcal{V}^{+}$ 。主要思想是利用拓扑信息作为指导，计算节点 $v \in \mathcal{V}^{-}$ 的直接邻域节点 $v^{\prime} \in N_{v}^{+}$ 的贡献度，然后根据贡献度补全无属性节点属性。</p>
-<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>给定一个异质图 $\mathcal{G}$ ，首先通过网络的拓扑结构 $A$ 来计算节点的embedding $H$ ，然后使用 $H$ 通过注意力机制计算一个得分，用来确定哪些直接连接的属性节点最适合向无属性节点贡献属性。接着根据这个得分来聚合 $\mathcal{V}^{+}$ 中节点的属性来补全 $\mathcal{V}^{-}$ 中节点的属性。为了避免过拟合以及确保补全过程中能够被指导，HGNN-AC首先会随机丢弃一些 $\mathcal{V}^{+}$ 中节点属性，然后按照同样的补全过程来重建这些被丢弃的属性，这样就会有一个丢弃属性被重建的的loss，使得补全过程是被指导的。最后，将属性完备的节点以及网络拓扑结构 $A$ 作为新的异质图提供给HIN模型。这个过程是端到端的，模型的整体loss就是HIN模型预测loss+属性重建loss。下图展示了模型整体架构：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig3.png"></p>
-<h3 id="2-拓扑Embedding的预学习"><a href="#2-拓扑Embedding的预学习" class="headerlink" title="2.拓扑Embedding的预学习"></a>2.拓扑Embedding的预学习</h3><p>在异质图中，每个节点都有拓扑信息，但不一定有属性信息。同质性是指相似实体之间的联系比不同实体之间的要强。由于网络同质性的存在，拓扑和属性信息总是表达相似或相同的语义。考虑到这一点，我们假设节点的拓扑信息之间的关系能够很好地反映节点的属性信息之间的关系。在本文中，HGNN-AC采用现有的异构图embedding方法，如metapath2vec或HHNE，得到基于网络拓扑的节点embedding。然而这些基于skip-gram的方法总是使用单个meta-path，可能会忽略一些有用的信息。为了得到更好的embedding，HGNN-AC首先根据常用的多个meta-path通过随机游走获得更全面的节点序列，然后将这些序列输入到skip-gram模型中学习节点嵌入。</p>
-<h3 id="3-使用attention机制进行属性补全"><a href="#3-使用attention机制进行属性补全" class="headerlink" title="3.使用attention机制进行属性补全"></a>3.使用attention机制进行属性补全</h3><p>先前的一些补全缺失属性的方式是平均聚合直接相邻邻居节点的属性，但我们注意到每个节点的直连邻居节点在属性聚合中具有不同的重要性，这主要是因为它们的局部拓扑结构不同，也就是说，一个节点的邻居越多，它对每个邻居的重要性就越低。<br></p>
-<p>本文采用的方法是得到节点embedding（节点embedding是根据图的拓扑结构得到的）后，HGNN-AC采用注意力机制自动学习不同直接邻居的重要性，然后从集合 $\mathcal{V}^{+}$ 中的一阶邻居聚合属性信息来补全 $\mathcal{V}^{-}$ 中的属性信息。<br></p>
-<p>给定直接相连的节点对 $(v,u)$ ，attention层可以学习到节点 $u$ 对节点 $v$ 的重要性 $e_{u v}$ ：<br>$$e_{v u}&#x3D;\operatorname{att}\left(h_{v}, h_{u}\right)$$<br>$h_{v}, h_{u}$ 是节点的拓扑embedding， $u \in \mathcal{V}^{+}$ 。<br></p>
-<p>进一步的，HGNN-AC采用masked attention机制，意味着我们只计算 $u \in N_{v}^{+}$ 的 $e_{v u}$ ， $N_{v}^{+}$ 是 $\mathcal{V}^{+}$ 中节点 $v$ 的一阶邻域。具体的：<br>$$e_{v u}&#x3D;\sigma\left(h_{v}^{T} W h_{u}\right)$$<br>$W$ 是参数矩阵， $\sigma$ 是激活函数。获得所有邻居的得分后，使用softmax函数进行标准化：<br>$$a_{v u}&#x3D;\operatorname{softmax}\left(e_{v u}\right)&#x3D;\frac{\exp \left(e_{v u}\right)}{\sum_{s \in \mathcal{N}_{v}^{+}} \exp \left(e_{v s}\right)}$$<br>然后执行加权聚合：<br>$$x_{v}^{C}&#x3D;\sum_{u \in \mathcal{N}_{v}^{+}} a_{v u} x_{u}$$<br>如果 $v$ 没有有属性邻居节点，也就是 $N_{v}^{+}&#x3D;\phi$ ，那么我们将 $v$ 的属性向量设置成零向量。但是事实上这种情况很少发生，所以对模型性能影响很小。<br>更进一步，为了稳定学习过程已经减少高方差（异质图网络具有很高的方差），我们采用multi-head attention，然后聚合的过程就变成了：<br>$$x_{v}^{C}&#x3D;\operatorname{mean}\left(\sum_{k}^{K} \sum_{u \in \mathcal{N}_{v}^{+}} a_{v u} x_{u}\right)$$</p>
-<h3 id="4-已有属性的Drop"><a href="#4-已有属性的Drop" class="headerlink" title="4.已有属性的Drop"></a>4.已有属性的Drop</h3><p>有一个问题，我们如何确保属性补全的过程是可学习的，以及生成的属性是正确的？为了解决这个问题，我们随机丢掉 $\mathcal{V}^{+}$ 中的一些属性，然后按照补全过程重构这些属性，这样丢弃属性和补全属性之间就有一个监督的补全loss，使得补全过程是被指导和可学习的。<br></p>
-<p>具体的，将 $\mathcal{V}^{+}$ 分成 $\mathcal{V}_{drop}^{+}$ 和 $\mathcal{V}_{keep}^{+}$ 两部分，由一个超参数 $\alpha$ 控制划分比例，也就是 $\left|V_{drop}^{+}\right|&#x3D;\alpha\left|V^{+}\right|$ 。HGNN-AC首先丢弃 $\mathcal{V}_{drop}^{+}$ 中的属性，然后根据 $\mathcal{V}_{keep}^{+}$ 中的节点属性重建丢弃的属性。按照前面框架的描述，在这里 $v$ 来自 $\mathcal{V}_{drop}^{+}$ ， $u$ 来自 $\mathcal{V}_{keep}^{+}$ ，同样的multi-head attention也应用在这里。<br></p>
-<p>我们的目标是让重构的属性与原来丢弃的属性尽可能接近，使用euclidean距离作为度量，于是便有一个监督loss：<br>$$\mathcal{L}_{completion} &#x3D; \frac{1}{\left|\mathcal{V}_{drop}^{+}\right|} \sum_{i \in \mathcal{V}_{drop}^{+}}{\sqrt{({X}_{i}^{C} - {X}_{i})^2}} $$</p>
-<h3 id="5-与HIN模型结合"><a href="#5-与HIN模型结合" class="headerlink" title="5.与HIN模型结合"></a>5.与HIN模型结合</h3><p>经过上述过程，我们有了 $\mathcal{V}^{-}$ 中的补全属性节点以及 $\mathcal{V}^{+}$ 中的有属性节点，于是所有节点属性定义如下：<br>$$X^{new}&#x3D; \{X_i^C,X_j|\forall i \in \mathcal{V}^{-},\forall j \in \mathcal{V}^{+}\}$$<br>节点属性 $X^{new}$ 和拓扑结构 $A$ ，作为一个新图，输入给HIN模型中：<br>$$<br>\begin{array}{c}<br>    \tilde{Y} &#x3D;\Phi (A,X^{new}) \\<br>    \mathcal{L}_{prediction}&#x3D;f(\tilde{Y},Y )<br>\end{array}<br>$$</p>
-<p>$\Phi$ 代表HIN模型， $\mathcal{L}_{prediction}$ 代表预测loss。最后，两个loss相结合，整个模型是端到端的：<br>$$\mathcal{L}&#x3D;\lambda \mathcal{L}_{completion} + \mathcal{L}_{prediction}$$<br>$\lambda$ 是一个权衡因子。</p>
-<h2 id="四、实验"><a href="#四、实验" class="headerlink" title="四、实验"></a>四、实验</h2><h3 id="1-数据集"><a href="#1-数据集" class="headerlink" title="1.数据集"></a>1.数据集</h3><p>采用三个数据集DBLP，ACM和IMDB。数据集统计信息如下：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig4.png"></p>
-<h3 id="2-实验"><a href="#2-实验" class="headerlink" title="2.实验"></a>2.实验</h3><p>实验分为两组：</p>
-<ol>
-<li>要分类的节点属性缺失，采用DBLP数据集；</li>
-<li>要分类的节点有属性，其余类型节点属性缺失，采用ACM和IMDB数据集。</li>
-</ol>
+<p><img src="fig2.png" /></p>
+<h2 id="三方法">三、方法</h2>
+<p>HGNN-AC遵循的原则是一个无属性节点 <span class="math inline">\(v \in \mathcal{V}^{-}\)</span> 的生成属性应该来自有属性节点 <span class="math inline">\(v \in \mathcal{V}^{+}\)</span> 。主要思想是利用拓扑信息作为指导，计算节点 <span class="math inline">\(v \in \mathcal{V}^{-}\)</span> 的直接邻域节点 <span class="math inline">\(v^{\prime} \in N_{v}^{+}\)</span> 的贡献度，然后根据贡献度补全无属性节点属性。 ### 1. 概述 给定一个异质图 <span class="math inline">\(\mathcal{G}\)</span> ，首先通过网络的拓扑结构 <span class="math inline">\(A\)</span> 来计算节点的embedding <span class="math inline">\(H\)</span> ，然后使用 <span class="math inline">\(H\)</span> 通过注意力机制计算一个得分，用来确定哪些直接连接的属性节点最适合向无属性节点贡献属性。接着根据这个得分来聚合 <span class="math inline">\(\mathcal{V}^{+}\)</span> 中节点的属性来补全 <span class="math inline">\(\mathcal{V}^{-}\)</span> 中节点的属性。为了避免过拟合以及确保补全过程中能够被指导，HGNN-AC首先会随机丢弃一些 <span class="math inline">\(\mathcal{V}^{+}\)</span> 中节点属性，然后按照同样的补全过程来重建这些被丢弃的属性，这样就会有一个丢弃属性被重建的的loss，使得补全过程是被指导的。最后，将属性完备的节点以及网络拓扑结构 <span class="math inline">\(A\)</span> 作为新的异质图提供给HIN模型。这个过程是端到端的，模型的整体loss就是HIN模型预测loss+属性重建loss。下图展示了模型整体架构：</p>
+<p><img src="fig3.png" /> ### 2.拓扑Embedding的预学习 在异质图中，每个节点都有拓扑信息，但不一定有属性信息。同质性是指相似实体之间的联系比不同实体之间的要强。由于网络同质性的存在，拓扑和属性信息总是表达相似或相同的语义。考虑到这一点，我们假设节点的拓扑信息之间的关系能够很好地反映节点的属性信息之间的关系。在本文中，HGNN-AC采用现有的异构图embedding方法，如metapath2vec或HHNE，得到基于网络拓扑的节点embedding。然而这些基于skip-gram的方法总是使用单个meta-path，可能会忽略一些有用的信息。为了得到更好的embedding，HGNN-AC首先根据常用的多个meta-path通过随机游走获得更全面的节点序列，然后将这些序列输入到skip-gram模型中学习节点嵌入。 ### 3.使用attention机制进行属性补全 先前的一些补全缺失属性的方式是平均聚合直接相邻邻居节点的属性，但我们注意到每个节点的直连邻居节点在属性聚合中具有不同的重要性，这主要是因为它们的局部拓扑结构不同，也就是说，一个节点的邻居越多，它对每个邻居的重要性就越低。<br></p>
+<p>本文采用的方法是得到节点embedding（节点embedding是根据图的拓扑结构得到的）后，HGNN-AC采用注意力机制自动学习不同直接邻居的重要性，然后从集合 <span class="math inline">\(\mathcal{V}^{+}\)</span> 中的一阶邻居聚合属性信息来补全 <span class="math inline">\(\mathcal{V}^{-}\)</span> 中的属性信息。<br></p>
+<p>给定直接相连的节点对 <span class="math inline">\((v,u)\)</span> ，attention层可以学习到节点 <span class="math inline">\(u\)</span> 对节点 <span class="math inline">\(v\)</span> 的重要性 <span class="math inline">\(e_{u v}\)</span> ： <span class="math display">\[e_{v u}=\operatorname{att}\left(h_{v}, h_{u}\right)\]</span> <span class="math inline">\(h_{v}, h_{u}\)</span> 是节点的拓扑embedding， <span class="math inline">\(u \in \mathcal{V}^{+}\)</span> 。<br></p>
+<p>进一步的，HGNN-AC采用masked attention机制，意味着我们只计算 <span class="math inline">\(u \in N_{v}^{+}\)</span> 的 <span class="math inline">\(e_{v u}\)</span> ， <span class="math inline">\(N_{v}^{+}\)</span> 是 <span class="math inline">\(\mathcal{V}^{+}\)</span> 中节点 <span class="math inline">\(v\)</span> 的一阶邻域。具体的： <span class="math display">\[e_{v u}=\sigma\left(h_{v}^{T} W h_{u}\right)\]</span> <span class="math inline">\(W\)</span> 是参数矩阵， <span class="math inline">\(\sigma\)</span> 是激活函数。获得所有邻居的得分后，使用softmax函数进行标准化： <span class="math display">\[a_{v u}=\operatorname{softmax}\left(e_{v u}\right)=\frac{\exp \left(e_{v u}\right)}{\sum_{s \in \mathcal{N}\_{v}^{+}} \exp \left(e_{v s}\right)}\]</span> 然后执行加权聚合： <span class="math display">\[x_{v}^{C}=\sum_{u \in \mathcal{N}\_{v}^{+}} a_{v u} x_{u}\]</span> 如果 <span class="math inline">\(v\)</span> 没有有属性邻居节点，也就是 <span class="math inline">\(N_{v}^{+}=\phi\)</span> ，那么我们将 <span class="math inline">\(v\)</span> 的属性向量设置成零向量。但是事实上这种情况很少发生，所以对模型性能影响很小。 更进一步，为了稳定学习过程已经减少高方差（异质图网络具有很高的方差），我们采用multi-head attention，然后聚合的过程就变成了： <span class="math display">\[x_{v}^{C}=\operatorname{mean}\left(\sum_{k}^{K} \sum_{u \in \mathcal{N}\_{v}^{+}} a_{v u} x_{u}\right)\]</span> ### 4.已有属性的Drop 有一个问题，我们如何确保属性补全的过程是可学习的，以及生成的属性是正确的？为了解决这个问题，我们随机丢掉 <span class="math inline">\(\mathcal{V}^{+}\)</span> 中的一些属性，然后按照补全过程重构这些属性，这样丢弃属性和补全属性之间就有一个监督的补全loss，使得补全过程是被指导和可学习的。<br></p>
+<p>具体的，将 <span class="math inline">\(\mathcal{V}^{+}\)</span> 分成 <span class="math inline">\(\mathcal{V}\_{drop}^{+}\)</span> 和 <span class="math inline">\(\mathcal{V}\_{keep}^{+}\)</span> 两部分，由一个超参数 <span class="math inline">\(\alpha\)</span> 控制划分比例，也就是 <span class="math inline">\(\left|V_{drop}^{+}\right|=\alpha\left|V^{+}\right|\)</span> 。HGNN-AC首先丢弃 <span class="math inline">\(\mathcal{V}\_{drop}^{+}\)</span> 中的属性，然后根据 <span class="math inline">\(\mathcal{V}\_{keep}^{+}\)</span> 中的节点属性重建丢弃的属性。按照前面框架的描述，在这里 <span class="math inline">\(v\)</span> 来自 <span class="math inline">\(\mathcal{V}\_{drop}^{+}\)</span> ， <span class="math inline">\(u\)</span> 来自 <span class="math inline">\(\mathcal{V}\_{keep}^{+}\)</span> ，同样的multi-head attention也应用在这里。<br></p>
+<p>我们的目标是让重构的属性与原来丢弃的属性尽可能接近，使用euclidean距离作为度量，于是便有一个监督loss： <span class="math display">\[\mathcal{L}\_{completion} = \frac{1}{\left|\mathcal{V}\_{drop}^{+}\right|} \sum_{i \in \mathcal{V}\_{drop}^{+}}{\sqrt{({X}\_{i}^{C} - {X}\_{i})^2}} \]</span> ### 5.与HIN模型结合 经过上述过程，我们有了 <span class="math inline">\(\mathcal{V}^{-}\)</span> 中的补全属性节点以及 <span class="math inline">\(\mathcal{V}^{+}\)</span> 中的有属性节点，于是所有节点属性定义如下： <span class="math display">\[X^{new}= \\{X_i^C,X_j|\forall i \in \mathcal{V}^{-},\forall j \in \mathcal{V}^{+}\\}\]</span> 节点属性 <span class="math inline">\(X^{new}\)</span> 和拓扑结构 <span class="math inline">\(A\)</span> ，作为一个新图，输入给HIN模型中： <span class="math display">\[
+\begin{array}{c}
+    \tilde{Y} =\Phi (A,X^{new}) \\\\
+    \mathcal{L}\_{prediction}=f(\tilde{Y},Y )
+\end{array}
+\]</span></p>
+<p><span class="math inline">\(\Phi\)</span> 代表HIN模型， <span class="math inline">\(\mathcal{L}\_{prediction}\)</span> 代表预测loss。最后，两个loss相结合，整个模型是端到端的： <span class="math display">\[\mathcal{L}=\lambda \mathcal{L}\_{completion} + \mathcal{L}\_{prediction}\]</span> <span class="math inline">\(\lambda\)</span> 是一个权衡因子。</p>
+<h2 id="四实验">四、实验</h2>
+<h3 id="数据集">1.数据集</h3>
+<p>采用三个数据集DBLP，ACM和IMDB。数据集统计信息如下：</p>
+<p><img src="fig4.png" /> ### 2.实验 实验分为两组： 1. 要分类的节点属性缺失，采用DBLP数据集； 2. 要分类的节点有属性，其余类型节点属性缺失，采用ACM和IMDB数据集。</p>
 <p>实验结果如下：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig5.png"></p>
-<p><img src="/2022/11/04/HGNN-AC/fig6.png"></p>
+<p><img src="fig5.png" /></p>
+<p><img src="fig6.png" /></p>
 <p>另外在GTN上对比了使用属性补全与不使用的效果:</p>
-<p><img src="/2022/11/04/HGNN-AC/fig7.png"></p>
-<h3 id="3-结果可视化"><a href="#3-结果可视化" class="headerlink" title="3.结果可视化"></a>3.结果可视化</h3><p>使用t-SNE对学习到的节点embedding做了可视化：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig8.png"></p>
-<h3 id="4-个例研究"><a href="#4-个例研究" class="headerlink" title="4.个例研究"></a>4.个例研究</h3><p>为了证明补全机制的有效性，采用下列五种配置进行实验对比：</p>
-<ul>
-<li><strong>MAGNN</strong>：paper节点属性采用关键词的词袋表示，author和subject节点来自于直接相连的paper节点特征的平均聚合；</li>
-<li><strong>MAGNN-onehot1</strong>：paper节点属性采用关键词的词袋表示，author节点采用one-hot向量表示，subject节点来自于直接相连的paper节点特征的平均聚合；</li>
-<li><strong>MAGNN-onehot2</strong>：paper节点属性采用关键词的词袋表示，author和subject节点都采用one-hot向量表示；</li>
-<li><strong>MAGNN-AC1</strong>：paper节点属性采用关键词的词袋表示，author节点采用我们提出的框架补全，subject节点采用one-hot向量表示；</li>
-<li><strong>MAGNN-AC2</strong>：paper节点属性采用关键词的词袋表示，author和subject节点都采用我们提出的框架补全。</li>
-</ul>
+<p><img src="fig7.png" /></p>
+<h3 id="结果可视化">3.结果可视化</h3>
+<p>使用t-SNE对学习到的节点embedding做了可视化：</p>
+<p><img src="fig8.png" /></p>
+<h3 id="个例研究">4.个例研究</h3>
+<p>为了证明补全机制的有效性，采用下列五种配置进行实验对比： * <strong>MAGNN</strong>：paper节点属性采用关键词的词袋表示，author和subject节点来自于直接相连的paper节点特征的平均聚合； * <strong>MAGNN-onehot1</strong>：paper节点属性采用关键词的词袋表示，author节点采用one-hot向量表示，subject节点来自于直接相连的paper节点特征的平均聚合； * <strong>MAGNN-onehot2</strong>：paper节点属性采用关键词的词袋表示，author和subject节点都采用one-hot向量表示； * <strong>MAGNN-AC1</strong>：paper节点属性采用关键词的词袋表示，author节点采用我们提出的框架补全，subject节点采用one-hot向量表示； * <strong>MAGNN-AC2</strong>：paper节点属性采用关键词的词袋表示，author和subject节点都采用我们提出的框架补全。</p>
 <p>实验结果如下：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig9.png"></p>
-<h3 id="5-参数实验"><a href="#5-参数实验" class="headerlink" title="5.参数实验"></a>5.参数实验</h3><p>对比不同超参数的影响：</p>
-<p><img src="/2022/11/04/HGNN-AC/fig10.png"></p>
+<p><img src="fig9.png" /></p>
+<h3 id="参数实验">5.参数实验</h3>
+<p>对比不同超参数的影响：</p>
+<p><img src="fig10.png" /></p>
 
     </div>
 
@@ -393,6 +378,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

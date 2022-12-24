@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wanghui19.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="MathJax.Hub.Config({             tex2jax: {             skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],             inlineMath: [[&#39;$&#39;,&#39;$&#39;]]             }         });">
+    <meta name="description" content="论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络 论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2002.01680.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;cynricfu&#x2F;MAGNN 论文发表：WWW 2020">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding">
 <meta property="og:url" content="https://wanghui19.github.io/2022/12/14/MAGNN/index.html">
 <meta property="og:site_name" content="Mr.Wang的博客">
-<meta property="og:description" content="MathJax.Hub.Config({             tex2jax: {             skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],             inlineMath: [[&#39;$&#39;,&#39;$&#39;]]             }         });">
+<meta property="og:description" content="论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络 论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2002.01680.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;cynricfu&#x2F;MAGNN 论文发表：WWW 2020">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wanghui19.github.io/2022/12/14/MAGNN/fig0.png">
 <meta property="og:image" content="https://wanghui19.github.io/2022/12/14/MAGNN/fig1.png">
@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://wanghui19.github.io/2022/12/14/MAGNN/fig9.png">
 <meta property="og:image" content="https://wanghui19.github.io/2022/12/14/MAGNN/fig10.png">
 <meta property="article:published_time" content="2022-12-14T02:40:25.000Z">
-<meta property="article:modified_time" content="2022-12-14T09:03:42.743Z">
+<meta property="article:modified_time" content="2022-12-24T09:42:53.758Z">
 <meta property="article:author" content="王辉">
 <meta property="article:tag" content="异质图学习">
 <meta name="twitter:card" content="summary">
@@ -130,7 +130,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9A%E4%B9%89%E5%92%8C%E7%AC%A6%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">二、定义和符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Node-Content-Transformation"><span class="nav-number">3.1.</span> <span class="nav-text">1. Node Content Transformation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Intra-metapath-Aggregation"><span class="nav-number">3.2.</span> <span class="nav-text">2. Intra-metapath Aggregation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Inter-metapath-Aggregation"><span class="nav-number">3.3.</span> <span class="nav-text">3. Inter-metapath Aggregation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Metapath-Instance-Encoders"><span class="nav-number">3.4.</span> <span class="nav-text">4. Metapath Instance Encoders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AE%AD%E7%BB%83"><span class="nav-number">3.5.</span> <span class="nav-text">5. 训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">四、实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">4.1.</span> <span class="nav-text">1.数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.2.</span> <span class="nav-text">2.实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.3.</span> <span class="nav-text">3. 消融实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">4.4.</span> <span class="nav-text">4. 可视化</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%AE%9A%E4%B9%89%E5%92%8C%E7%AC%A6%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">二、定义和符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#node-content-transformation"><span class="nav-number">3.1.</span> <span class="nav-text">1. Node Content Transformation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intra-metapath-aggregation"><span class="nav-number">3.2.</span> <span class="nav-text">2. Intra-metapath Aggregation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inter-metapath-aggregation"><span class="nav-number">3.3.</span> <span class="nav-text">3. Inter-metapath Aggregation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#metapath-instance-encoders"><span class="nav-number">3.4.</span> <span class="nav-text">4. Metapath Instance Encoders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">3.5.</span> <span class="nav-text">5. 训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">四、实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">4.1.</span> <span class="nav-text">1.数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.2.</span> <span class="nav-text">2.实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.3.</span> <span class="nav-text">3. 消融实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">4.4.</span> <span class="nav-text">4. 可视化</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -221,9 +221,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-12-14 10:40:25 / 修改时间：17:03:42" itemprop="dateCreated datePublished" datetime="2022-12-14T10:40:25+08:00">2022-12-14</time>
+      <time title="创建时间：2022-12-14 10:40:25" itemprop="dateCreated datePublished" datetime="2022-12-14T10:40:25+08:00">2022-12-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-24 17:42:53" itemprop="dateModified" datetime="2022-12-24T17:42:53+08:00">2022-12-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -245,103 +251,130 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
-<p><img src="/2022/12/14/MAGNN/fig0.png"></p>
+        <p><img src="fig0.png" /></p>
 <p>论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络</p>
-<p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2002.01680.pdf">https://arxiv.org/pdf/2002.01680.pdf</a></p>
-<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/cynricfu/MAGNN">https://github.com/cynricfu/MAGNN</a></p>
-<p>论文发表：WWW 2020</p>
-<span id="more"></span>
-
-<h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><p>本文提出MAGNN模型，围绕元路径的聚合问题展开。元路径聚合主要有两部分，元路径内部的聚合、元路径之间的聚合。同时，在建模过程中结合了节点的属性信息。</p>
+<p>论文链接：https://arxiv.org/pdf/2002.01680.pdf</p>
+<p>代码链接：https://github.com/cynricfu/MAGNN</p>
+<p>论文发表：WWW 2020 <span id="more"></span></p>
+<h2 id="一引言">一、引言</h2>
+<p>本文提出MAGNN模型，围绕元路径的聚合问题展开。元路径聚合主要有两部分，元路径内部的聚合、元路径之间的聚合。同时，在建模过程中结合了节点的属性信息。</p>
 <p>现有的基于元路径的嵌入学习方法有以下的局限性：</p>
-<ol>
+<ol type="1">
 <li><strong>忽略了节点的属性信息</strong>，不能很好的处理节点属性特征丰富的异质图。例如 metapath2vec, ESim, HIN2vec, HERec 。</li>
 <li><strong>舍弃了元路径内部的节点信息</strong>，只考虑元路径的起始节点和末尾节点，造成信息损失。例如 HERec, HAN 。</li>
 <li><strong>只依赖于单个路径</strong>，因此需要人工选择元路径，丢失了来自其他元路径的部分信息，导致性能不佳。例如 metapath2vec 。</li>
 </ol>
 <p>为解决上述问题，本文提出 MAGNN: Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</p>
-<h2 id="二、定义和符号"><a href="#二、定义和符号" class="headerlink" title="二、定义和符号"></a>二、定义和符号</h2><p>异质图、元路径、元路径实例不在赘述。<br>相关图示如下：</p>
-<p><img src="/2022/12/14/MAGNN/fig1.png"></p>
-<p><strong>Metapath-based Neighbor</strong>：<br>给定异质图中的一个元路径 $P$ ，节点 $v$ 的 metapath-based 邻居 $\mathcal{N}^P_v$ 为和 $v$ 相连的遵循元路径 $P$ 的模式的节点集合。由两个不同的元路径实例与 $v$ 相连的同一个邻居节点，被视为 $\mathcal{N}^P_v$ 中的两个节点。另外，如果元路径 $P$ 是对称的，$\mathcal{N}^P_v$ 中也包含节点 $v$ 自身。</p>
-<p><strong>Metapath-based Graph</strong>：<br>给定异质图 $\mathcal{G}$ 中的元路径 $P$ ，基于元路径的图 $\mathcal{G}^P$ 由原始图 $\mathcal{G}$ 中所有的基于元路径 $P$ 的邻居点对组成（去掉了元路径实例的中间节点，只保留了元路径实例两端的节点，并在两点间建立起连边）。如果元路径 $P$ 是对称的，则 $\mathcal{G}^P$ 是同质图。如上图(d)所示。</p>
-<p><strong>异质图嵌入</strong>：<br>给定 $\mathcal{G}&#x3D;(\mathcal{V}, \mathcal{E} )$ 和节点属性矩阵 $\mathbf{X} _ {A_i} \in \mathbb{R}^{ | \mathcal{V} _ {A_i} | \times d_{A_i} }$ ，其中 $A_i$ 表示节点类型，异质图嵌入学习的目的是从图中捕获到丰富的结构信息和语义信息，从而为每个节点学习到 $d$ 维的表示 $\mathbf{h}_v\in \mathbb{R}^d$ 。</p>
-<p><img src="/2022/12/14/MAGNN/fig2.png"></p>
-<h2 id="三、方法"><a href="#三、方法" class="headerlink" title="三、方法"></a>三、方法</h2><p>MAGNN由<strong>节点内容转换</strong>、<strong>元路径内部聚合</strong>、<strong>元路径间的聚合</strong>三部分组成，下图展示了一个节点的嵌入生成过程。</p>
-<p><img src="/2022/12/14/MAGNN/fig3.png"></p>
-<h3 id="1-Node-Content-Transformation"><a href="#1-Node-Content-Transformation" class="headerlink" title="1. Node Content Transformation"></a>1. Node Content Transformation</h3><p>异质图中的不同类型的节点有着不同的属性，因此不同类型的节点的特征向量可能有着不同的维度，即使碰巧维度相同，特征向量也应该属于不同的特征空间。</p>
-<p>为了方便统一处理，需要<strong>将这些不同类型的节点的特征映射到同一个隐层的向量空间中</strong>。具体方法就是对每种类型的节点都使用一个特定的线性转换，来将节点的特征向量转换到同一个隐层的特征空间中。对于类别为 $A\in \mathcal{A}$ 的节点 $v\in \mathcal{V} _ {A}$ ，进行如下的转换：<br>$$<br>\mathbf{h}_{v}^{\prime}&#x3D;\mathbf{W}_{A} \cdot \mathbf{x}_{v}^{A}<br>$$<br>其中 $x_v\in \mathbb{R}^{d_A}$ 是原始的特征向量， $\mathbf{h}^{\prime}_v\in \mathbb{R}^{d^{\prime}}$ 是映射后的节点 $v$ 的特征向量。 $W_A\in \mathbb{R}^{d^{\prime}\times d_A}$ 是对于类型为 $A$ 的节点的参数化权重矩阵。</p>
-<h3 id="2-Intra-metapath-Aggregation"><a href="#2-Intra-metapath-Aggregation" class="headerlink" title="2. Intra-metapath Aggregation"></a>2. Intra-metapath Aggregation</h3><p>给定元路径 $P$，元路径内部聚合层通过对 $P$ 的元路径实例编码，可以学习到 <strong>目标节点、基于元路径的邻居节点、节点之间的上下文</strong> 中嵌入的结构信息和语义信息。</p>
-<p>定义连接目标节点 $v$ 和它的 metapath-based 邻居节点 $u\in \mathcal{N}^P_v$ 为 $P(v, u)$ 。</p>
-<p>定义 $P(v, u)$ 的内部节点为 ${ {m^{P(v, u)} }}&#x3D;P(v, u)\setminus{ {u, v} }$ 。</p>
-<p><strong>元路径内部聚合采用了特殊的元路径实例编码器</strong>（metapath instance encoder）将元路径实例中的所有节点的特征转换成向量 $\mathbf{h}_{P(v,u)}\in \mathbb{R}^{d^{\prime}}$ :<br>$$<br>\mathbf{h}_{P(v, u)}&#x3D;f_{\theta}(P(v, u))&#x3D;f_{\theta}\left(\mathbf{h}_{v}^{\prime}, \mathbf{h}_{u}^{\prime},\left{\mathbf{h}_{t}^{\prime}, \forall t \in\left{m^{P(v, u)}\right}\right}\right)<br>$$<br>节点 $v, u$ 之间可能存在多个元路径实例，第4小节介绍了限定的 metapath instance encoder 的几种选择。</p>
-<p><strong>接着使用图注意力层（graph attention layer）加权聚合</strong>针对目标节点 $v$ 的且元路径为 $P$ 的多个元路径实例：<br>$$<br>\begin{aligned}<br>e_{v u}^{P} &amp; &#x3D;\operatorname{LeakyReLU}\left(\mathbf{a}_{P}^{\top} \cdot\left[\mathbf{h}<em>{v}^{\prime} | \mathbf{h}_{P(v, u)}\right]\right), \<br>\alpha</em>{v u}^{P} &amp; &#x3D;\frac{\exp \left(e_{v u}^{P}\right)}     {\sum_{s \in N_{v}^{P}} \exp \left(e_{v s}^{P}\right)}, \<br>\mathbf{h}_{v}^{P} &amp; &#x3D;\sigma\left(\sum_{u \in \mathcal{N}_{v}^{P}} \alpha_{v u}^{P} \cdot \mathbf{h}_{P(v, u)}\right) .<br>\end{aligned}<br>$$<br>其中 $a_P\in \mathbb{R}^{2d^{\prime}}$ 是元路径 $P$ 的参数化的注意力向量。$e^P_{vu}$ 表示元路径实例 $P(v, u)$ 对节点 $v$ 的重要性，然后使用 softmax 进行了归一化，然后使用归一化后的注意力系数对和节点 $v$ 相关的元路径实例的表示进行加权求和。最后再经过一个激活函数。</p>
-<p><strong>上述的注意力机制可以扩展成多头的（multi-heads），这有助于学习过程的稳定，并且可以减小图的异质性带来的高方差：</strong><br>$$<br>\mathbf{h}<em>{v}^{P}&#x3D;|</em>{k&#x3D;1}^{K} \sigma\left(\sum_{u \in N_{v}^{P}}\left[\alpha_{v u}^{P}\right]<em>{k} \cdot \mathbf{h}</em>{P(v, u)}\right)<br>$$</p>
-<p><strong>总结</strong>：<br>给出映射后的特征向量 $h^{\prime}_u\in \mathbb{R}^{d^{\prime}}, \forall u\in \mathcal{V}$，以及一组元路径 $\mathcal{P}_A&#x3D;{ {P_1, P_2, …, P_M} }$。<strong>内部元路径聚合</strong>为目标节点 $v$ 生成 $M$ 个针对特定元路径的向量表示，记为 ${ {h^{P_1}_v,h^{P_2}_v, …, h^{P_M}_v } }$，每个 $h^{P_i}_v\in \mathbb{R}^{d{\prime}}$（假定K&#x3D;1）都表示了节点 $v$ 中隐含的一种语义信息。</p>
-<h3 id="3-Inter-metapath-Aggregation"><a href="#3-Inter-metapath-Aggregation" class="headerlink" title="3. Inter-metapath Aggregation"></a>3. Inter-metapath Aggregation</h3><p><strong>使用元路径间的聚合层结合所有元路径的语义信息。</strong></p>
-<p>从上一步可知，对于类型为 $A$ 的节点，生成了 $|\mathcal{V}_A|$ 组隐层向量：${ {h^{P_1}_v, h^{P_2}_v, …, h^{P_M}_v} }, v\in \mathcal{V}_A$，$M$ 是 $A$ 类型节点的元路径数目。使用注意力机制为不同的元路径分配不同的权重。</p>
-<p><strong>首先，针对每条元路径</strong> $P_i\in \mathcal{P}<em>A$ ，对所有类型为 $A$ 的节点在特定元路径下的节点向量进行转换，然后取平均：<br>$$<br>\mathbf{s}</em>{P_{i}}&#x3D;\frac{1}{\left|\mathcal{V}<em>{A}\right|} \sum</em>{v \in \mathcal{V}<em>{A}} \tanh \left(\mathbf{M}</em>{A} \cdot \mathbf{h}<em>{v}^{P</em>{i}}+\mathbf{b}_{A}\right)<br>$$<br>其中 $M_A\in \mathbb{R}^{d_m\times d^{‘}}, b_A\in \mathbb{R}^{d_m}$ 为可学习到的参数。</p>
-<p><strong>然后使用注意力机制混合特定元路径下的节点 $v$ 的特征向量</strong>：<br>$$<br>\begin{array}{l}<br>e_{P_{i}}&#x3D;\mathbf{q}<em>{A}^{\top} \cdot \mathbf{s}</em>{P_{i}}, \<br>\beta_{P_{i}}&#x3D;\frac{\exp \left(e_{P_{i}}\right)}{\sum_{P \in \mathcal{P}<em>{A}} \exp \left(e</em>{P}\right)}, \<br>\mathbf{h}<em>{v}^{\mathcal{P}</em>{A}}&#x3D;\sum_{P \in \mathcal{P}<em>{A}} \beta</em>{P} \cdot \mathbf{h}<em>{v}^{P}<br>\end{array}<br>$$<br>其中 $q_A\in \mathbb{R}^{d_m}$ 为参数化的针对 $A$ 类型节点的注意力向量。$\beta</em>{P_i}$ 可解释为元路径 $P_i$ 对于 $A$ 类型节点的重要性。使用这个注意力系数对节点 $v$ 的所有针对特定元路径的向量进行加权求和。</p>
-<p><strong>最后，MAGNN使用线性转换和一层非线性函数，将节点嵌入映射到输出所需维度的向量空间：</strong><br>$$<br>\mathbf{h}<em>{v}&#x3D;\sigma\left(\mathbf{W}</em>{o} \cdot \mathbf{h}<em>{v}^{\mathcal{P}</em>{A}}\right)<br>$$<br>其中 $W_o\in \mathbb{R}^{d_o\times d^{\prime}}$ 是权重矩阵，$\sigma(\cdot)$ 是激活函数。</p>
+<h2 id="二定义和符号">二、定义和符号</h2>
+<p>异质图、元路径、元路径实例不在赘述。 相关图示如下：</p>
+<p><img src="fig1.png" /></p>
+<p><strong>Metapath-based Neighbor</strong>： 给定异质图中的一个元路径 <span class="math inline">\(P\)</span> ，节点 <span class="math inline">\(v\)</span> 的 metapath-based 邻居 <span class="math inline">\(\mathcal{N}^P_v\)</span> 为和 <span class="math inline">\(v\)</span> 相连的遵循元路径 <span class="math inline">\(P\)</span> 的模式的节点集合。由两个不同的元路径实例与 <span class="math inline">\(v\)</span> 相连的同一个邻居节点，被视为 <span class="math inline">\(\mathcal{N}^P_v\)</span> 中的两个节点。另外，如果元路径 <span class="math inline">\(P\)</span> 是对称的，<span class="math inline">\(\mathcal{N}^P_v\)</span> 中也包含节点 <span class="math inline">\(v\)</span> 自身。</p>
+<p><strong>Metapath-based Graph</strong>： 给定异质图 <span class="math inline">\(\mathcal{G}\)</span> 中的元路径 <span class="math inline">\(P\)</span> ，基于元路径的图 <span class="math inline">\(\mathcal{G}^P\)</span> 由原始图 <span class="math inline">\(\mathcal{G}\)</span> 中所有的基于元路径 <span class="math inline">\(P\)</span> 的邻居点对组成（去掉了元路径实例的中间节点，只保留了元路径实例两端的节点，并在两点间建立起连边）。如果元路径 <span class="math inline">\(P\)</span> 是对称的，则 <span class="math inline">\(\mathcal{G}^P\)</span> 是同质图。如上图(d)所示。</p>
+<p><strong>异质图嵌入</strong>： 给定 <span class="math inline">\(\mathcal{G}=(\mathcal{V}, \mathcal{E} )\)</span> 和节点属性矩阵 <span class="math inline">\(\mathbf{X} _ {A_i} \in \mathbb{R}^{ | \mathcal{V} \_ {A_i} | \times d_{A_i} }\)</span> ，其中 <span class="math inline">\(A_i\)</span> 表示节点类型，异质图嵌入学习的目的是从图中捕获到丰富的结构信息和语义信息，从而为每个节点学习到 <span class="math inline">\(d\)</span> 维的表示 <span class="math inline">\(\mathbf{h}_v\in \mathbb{R}^d\)</span> 。</p>
+<p><img src="fig2.png" /></p>
+<h2 id="三方法">三、方法</h2>
+<p>MAGNN由<strong>节点内容转换</strong>、<strong>元路径内部聚合</strong>、<strong>元路径间的聚合</strong>三部分组成，下图展示了一个节点的嵌入生成过程。</p>
+<p><img src="fig3.png" /></p>
+<h3 id="node-content-transformation">1. Node Content Transformation</h3>
+<p>异质图中的不同类型的节点有着不同的属性，因此不同类型的节点的特征向量可能有着不同的维度，即使碰巧维度相同，特征向量也应该属于不同的特征空间。</p>
+<p>为了方便统一处理，需要<strong>将这些不同类型的节点的特征映射到同一个隐层的向量空间中</strong>。具体方法就是对每种类型的节点都使用一个特定的线性转换，来将节点的特征向量转换到同一个隐层的特征空间中。对于类别为 <span class="math inline">\(A\in \mathcal{A}\)</span> 的节点 <span class="math inline">\(v\in \mathcal{V} \_ {A}\)</span> ，进行如下的转换： <span class="math display">\[
+\mathbf{h}\_{v}^{\prime}=\mathbf{W}\_{A} \cdot \mathbf{x}\_{v}^{A}
+\]</span> 其中 <span class="math inline">\(x_v\in \mathbb{R}^{d_A}\)</span> 是原始的特征向量， <span class="math inline">\(\mathbf{h}^{\prime}_v\in \mathbb{R}^{d^{\prime}}\)</span> 是映射后的节点 <span class="math inline">\(v\)</span> 的特征向量。 <span class="math inline">\(W_A\in \mathbb{R}^{d^{\prime}\times d_A}\)</span> 是对于类型为 <span class="math inline">\(A\)</span> 的节点的参数化权重矩阵。</p>
+<h3 id="intra-metapath-aggregation">2. Intra-metapath Aggregation</h3>
+<p>给定元路径 <span class="math inline">\(P\)</span>，元路径内部聚合层通过对 <span class="math inline">\(P\)</span> 的元路径实例编码，可以学习到 <strong>目标节点、基于元路径的邻居节点、节点之间的上下文</strong> 中嵌入的结构信息和语义信息。</p>
+<p>定义连接目标节点 <span class="math inline">\(v\)</span> 和它的 metapath-based 邻居节点 <span class="math inline">\(u\in \mathcal{N}^P_v\)</span> 为 <span class="math inline">\(P(v, u)\)</span> 。</p>
+<p>定义 <span class="math inline">\(P(v, u)\)</span> 的内部节点为 <span class="math inline">\({ \{m^{P(v, u)} \}}=P(v, u)\setminus{ \{u, v\} }\)</span> 。</p>
+<p><strong>元路径内部聚合采用了特殊的元路径实例编码器</strong>（metapath instance encoder）将元路径实例中的所有节点的特征转换成向量 <span class="math inline">\(\mathbf{h}\_{P(v,u)}\in \mathbb{R}^{d^{\prime}}\)</span> : <span class="math display">\[
+\mathbf{h}\_{P(v, u)}=f_{\theta}(P(v, u))=f_{\theta}\left(\mathbf{h}\_{v}^{\prime}, \mathbf{h}\_{u}^{\prime},\left\{\mathbf{h}\_{t}^{\prime}, \forall t \in \left\{m^{P(v, u)}\right \}\right \} \right)
+\]</span> 节点 <span class="math inline">\(v, u\)</span> 之间可能存在多个元路径实例，第4小节介绍了限定的 metapath instance encoder 的几种选择。</p>
+<p><strong>接着使用图注意力层（graph attention layer）加权聚合</strong>针对目标节点 <span class="math inline">\(v\)</span> 的且元路径为 <span class="math inline">\(P\)</span> 的多个元路径实例： <span class="math display">\[
+\begin{aligned}
+e_{v u}^{P} &amp; =\operatorname{LeakyReLU}\left(\mathbf{a}\_{P}^{\top} \cdot\left[\mathbf{h}_{v}^{\prime} \| \mathbf{h}\_{P(v, u)}\right]\right), \\
+\alpha_{v u}^{P} &amp; =\frac{\exp \left(e_{v u}^{P}\right)}     {\sum_{s \in N_{v}^{P}} \exp \left(e_{v s}^{P}\right)}, \\
+\mathbf{h}\_{v}^{P} &amp; =\sigma\left(\sum_{u \in \mathcal{N}\_{v}^{P}} \alpha_{v u}^{P} \cdot \mathbf{h}\_{P(v, u)}\right) .
+\end{aligned}
+\]</span> 其中 <span class="math inline">\(a_P\in \mathbb{R}^{2d^{\prime}}\)</span> 是元路径 <span class="math inline">\(P\)</span> 的参数化的注意力向量。<span class="math inline">\(e^P_{vu}\)</span> 表示元路径实例 <span class="math inline">\(P(v, u)\)</span> 对节点 <span class="math inline">\(v\)</span> 的重要性，然后使用 softmax 进行了归一化，然后使用归一化后的注意力系数对和节点 <span class="math inline">\(v\)</span> 相关的元路径实例的表示进行加权求和。最后再经过一个激活函数。</p>
+<p><strong>上述的注意力机制可以扩展成多头的（multi-heads），这有助于学习过程的稳定，并且可以减小图的异质性带来的高方差：</strong> <span class="math display">\[
+\mathbf{h}_{v}^{P}=\|_{k=1}^{K} \sigma\left(\sum_{u \in N_{v}^{P}}\left[\alpha_{v u}^{P}\right]_{k} \cdot \mathbf{h}_{P(v, u)}\right)
+\]</span></p>
+<p><strong>总结</strong>： 给出映射后的特征向量 <span class="math inline">\(h^{\prime}_u\in \mathbb{R}^{d^{\prime}}, \forall u\in \mathcal{V}\)</span>，以及一组元路径 <span class="math inline">\(\mathcal{P}_A={ \{P_1, P_2, ..., P_M\} }\)</span>。<strong>内部元路径聚合</strong>为目标节点 <span class="math inline">\(v\)</span> 生成 <span class="math inline">\(M\)</span> 个针对特定元路径的向量表示，记为 <span class="math inline">\({ \{h^{P_1}_v,h^{P_2}_v, ..., h^{P_M}_v \} }\)</span>，每个 <span class="math inline">\(h^{P_i}_v\in \mathbb{R}^{d{\prime}}\)</span>（假定K=1）都表示了节点 <span class="math inline">\(v\)</span> 中隐含的一种语义信息。</p>
+<h3 id="inter-metapath-aggregation">3. Inter-metapath Aggregation</h3>
+<p><strong>使用元路径间的聚合层结合所有元路径的语义信息。</strong></p>
+<p>从上一步可知，对于类型为 <span class="math inline">\(A\)</span> 的节点，生成了 <span class="math inline">\(|\mathcal{V}_A|\)</span> 组隐层向量：<span class="math inline">\({ \{h^{P_1}_v, h^{P_2}_v, ..., h^{P_M}_v\} }, v\in \mathcal{V}_A\)</span>，<span class="math inline">\(M\)</span> 是 <span class="math inline">\(A\)</span> 类型节点的元路径数目。使用注意力机制为不同的元路径分配不同的权重。</p>
+<p><strong>首先，针对每条元路径</strong> <span class="math inline">\(P_i\in \mathcal{P}_A\)</span> ，对所有类型为 <span class="math inline">\(A\)</span> 的节点在特定元路径下的节点向量进行转换，然后取平均： <span class="math display">\[
+\mathbf{s}_{P_{i}}=\frac{1}{\left|\mathcal{V}_{A}\right|} \sum_{v \in \mathcal{V}_{A}} \tanh \left(\mathbf{M}_{A} \cdot \mathbf{h}_{v}^{P_{i}}+\mathbf{b}_{A}\right)
+\]</span> 其中 <span class="math inline">\(M_A\in \mathbb{R}^{d_m\times d^{&#39;}}, b_A\in \mathbb{R}^{d_m}\)</span> 为可学习到的参数。</p>
+<p><strong>然后使用注意力机制混合特定元路径下的节点 <span class="math inline">\(v\)</span> 的特征向量</strong>： <span class="math display">\[
+\begin{array}{l}
+e_{P_{i}}=\mathbf{q}_{A}^{\top} \cdot \mathbf{s}_{P_{i}}, \\
+\beta_{P_{i}}=\frac{\exp \left(e_{P_{i}}\right)}{\sum_{P \in \mathcal{P}_{A}} \exp \left(e_{P}\right)}, \\
+\mathbf{h}_{v}^{\mathcal{P}_{A}}=\sum_{P \in \mathcal{P}_{A}} \beta_{P} \cdot \mathbf{h}_{v}^{P}
+\end{array}
+\]</span> 其中 <span class="math inline">\(q_A\in \mathbb{R}^{d_m}\)</span> 为参数化的针对 <span class="math inline">\(A\)</span> 类型节点的注意力向量。<span class="math inline">\(\beta_{P_i}\)</span> 可解释为元路径 <span class="math inline">\(P_i\)</span> 对于 <span class="math inline">\(A\)</span> 类型节点的重要性。使用这个注意力系数对节点 <span class="math inline">\(v\)</span> 的所有针对特定元路径的向量进行加权求和。</p>
+<p><strong>最后，MAGNN使用线性转换和一层非线性函数，将节点嵌入映射到输出所需维度的向量空间：</strong> <span class="math display">\[
+\mathbf{h}_{v}=\sigma\left(\mathbf{W}_{o} \cdot \mathbf{h}_{v}^{\mathcal{P}_{A}}\right)
+\]</span> 其中 <span class="math inline">\(W_o\in \mathbb{R}^{d_o\times d^{\prime}}\)</span> 是权重矩阵，<span class="math inline">\(\sigma(\cdot)\)</span> 是激活函数。</p>
 <p><strong>这个映射针对具体任务有所不同</strong>，可以看成是用于节点分类的线性分类器，也可看成是带有节点间相似度度量的空间投影，可用于链接预测。</p>
-<h3 id="4-Metapath-Instance-Encoders"><a href="#4-Metapath-Instance-Encoders" class="headerlink" title="4. Metapath Instance Encoders"></a>4. Metapath Instance Encoders</h3><p>本节对应第2小节中的元路径实例编码函数 $f_{\theta}$ ，作者给出了三个候选的编码函数：</p>
-<ol>
-<li><strong>Mean encoder</strong>：<br>$$<br>\mathbf{h}<em>{P(v, u)}&#x3D;\operatorname{MEAN}\left(\left{\mathbf{h}</em>{t}^{\prime}, \forall t \in P(v, u)\right}\right)<br>$$</li>
-<li><strong>Linear encoder</strong>：<br>是 mean encoder 的扩展，区别在于添加了一个线性转换。<br>$$<br>\mathbf{h}<em>{P(v, u)}&#x3D;\mathbf{W}</em>{P} \cdot \operatorname{MEAN}\left(\left{\mathbf{h}_{t}^{\prime}, \forall t \in P(v, u)\right}\right)<br>$$</li>
-<li><strong>Relational rotation encoder</strong>：<br>基于在复杂空间的关系旋转（relation rotation）的元路径实例编码器。这一操作是RotatE提出的，原文做的是知识图谱的嵌入学习。</li>
-</ol>
+<h3 id="metapath-instance-encoders">4. Metapath Instance Encoders</h3>
+<p>本节对应第2小节中的元路径实例编码函数 <span class="math inline">\(f_{\theta}\)</span> ，作者给出了三个候选的编码函数： 1. <strong>Mean encoder</strong>： <span class="math display">\[
+\mathbf{h}_{P(v, u)}=\operatorname{MEAN}\left(\left\{\mathbf{h}_{t}^{\prime}, \forall t \in P(v, u)\right\}\right)
+\]</span> 2. <strong>Linear encoder</strong>： 是 mean encoder 的扩展，区别在于添加了一个线性转换。 <span class="math display">\[
+\mathbf{h}_{P(v, u)}=\mathbf{W}_{P} \cdot \operatorname{MEAN}\left(\left\{\mathbf{h}_{t}^{\prime}, \forall t \in P(v, u)\right\}\right)
+\]</span> 3. <strong>Relational rotation encoder</strong>： 基于在复杂空间的关系旋转（relation rotation）的元路径实例编码器。这一操作是RotatE提出的，原文做的是知识图谱的嵌入学习。</p>
 <p>mean encoder 和 linear encoder 将元路径实例看作了一个集合，忽视了元路径序列结构中嵌入的信息。关系旋转的方法提供了建模这一类知识的方法。</p>
-<p>给定 $P(v, u)&#x3D;(t_0, t_1, …, t_n), t_0&#x3D;u, t_n&#x3D;v$，$R_i$ 为节点 $t_{i-1}, t_i$ 之间的关系。令 $\mathbf{r}<em>i$ 为 $R_i$ 的向量表示。Relational rotation encoder可形式化为：<br>$$<br>\begin{array}{l}<br>\mathbf{o}</em>{0}&#x3D;\mathbf{h}<em>{t</em>{0}}^{\prime}&#x3D;\mathbf{h}<em>{u}^{\prime} \<br>\mathbf{o}</em>{i}&#x3D;\mathbf{h}<em>{t</em>{i}}^{\prime}+\mathbf{o}<em>{i-1} \odot \mathbf{r}</em>{i}, \<br>\mathbf{h}<em>{P(v, u)}&#x3D;\frac{\mathbf{o}</em>{n}}{n+1}<br>\end{array}<br>$$<br>其中，$\mathbf{h}^{\prime}_{t_i}, \mathbf{r}<em>i$ 是复杂的向量，$\odot$ 表示元素间乘积。可将 $d^{\prime}$ 维的真实向量 $\mathbf{h}</em>{P(v,u)}$ 看成是一个复杂的向量，它的前 $d^{\prime}&#x2F;2$ 维是真实的部分，后 $d^{\prime}&#x2F;2$ 为虚构的部分。</p>
+<p>给定 <span class="math inline">\(P(v, u)=(t_0, t_1, ..., t_n), t_0=u, t_n=v\)</span>，<span class="math inline">\(R_i\)</span> 为节点 <span class="math inline">\(t_{i-1}, t_i\)</span> 之间的关系。令 <span class="math inline">\(\mathbf{r}_i\)</span> 为 <span class="math inline">\(R_i\)</span> 的向量表示。Relational rotation encoder可形式化为： <span class="math display">\[
+\begin{array}{l}
+\mathbf{o}_{0}=\mathbf{h}_{t_{0}}^{\prime}=\mathbf{h}_{u}^{\prime} \\
+\mathbf{o}_{i}=\mathbf{h}_{t_{i}}^{\prime}+\mathbf{o}_{i-1} \odot \mathbf{r}_{i}, \\
+\mathbf{h}_{P(v, u)}=\frac{\mathbf{o}_{n}}{n+1}
+\end{array}
+\]</span> 其中，<span class="math inline">\(\mathbf{h}^{\prime}_{t_i}, \mathbf{r}_i\)</span> 是复杂的向量，<span class="math inline">\(\odot\)</span> 表示元素间乘积。可将 <span class="math inline">\(d^{\prime}\)</span> 维的真实向量 <span class="math inline">\(\mathbf{h}_{P(v,u)}\)</span> 看成是一个复杂的向量，它的前 <span class="math inline">\(d^{\prime}/2\)</span> 维是真实的部分，后 <span class="math inline">\(d^{\prime}/2\)</span> 为虚构的部分。</p>
 <p><strong>MAGNN前向传播算法如下</strong>：</p>
-<p><img src="/2022/12/14/MAGNN/fig4.png"></p>
-<h3 id="5-训练"><a href="#5-训练" class="headerlink" title="5. 训练"></a>5. 训练</h3><p>经过上述的三个部分，得到了最终的节点表示，可用于下游任务。</p>
-<p>由于不同任务的特点不同，而且不一定能得到节点标签。因此为MAGNN设计了两种学习范式：<strong>半监督学习、无监督学习</strong>。</p>
-<ol>
-<li><strong>半监督学习</strong></li>
-</ol>
-<p>最小化交叉熵损失：<br>$$<br>\mathcal{L} &#x3D; -\sum_{v \in \mathcal{V}<em>{L}} \sum</em>{c&#x3D;1}^{C} \mathrm{y}_{v}[c]\cdot \log{h_v}[c]<br>$$<br>其中，$\mathcal{V}_L$ 是有标签的节点集合，$C$ 是类别数目，$\mathbf{y}_v$ 是节点 $v$ 的 one-hot 向量，$\mathbf{h}_v$ 是模型输出的节点 $v$ 的向量表示。</p>
-<ol start="2">
+<p><img src="fig4.png" /></p>
+<h3 id="训练">5. 训练</h3>
+<p>经过上述的三个部分，得到了最终的节点表示，可用于下游任务。</p>
+<p>由于不同任务的特点不同，而且不一定能得到节点标签。因此为MAGNN设计了两种学习范式：<strong>半监督学习、无监督学习</strong>。 1. <strong>半监督学习</strong></p>
+<p>最小化交叉熵损失： <span class="math display">\[
+\mathcal{L} = -\sum_{v \in \mathcal{V}_{L}} \sum_{c=1}^{C} \mathrm{y}_{v}[c]\cdot \log{h_v}[c]
+\]</span> 其中，<span class="math inline">\(\mathcal{V}_L\)</span> 是有标签的节点集合，<span class="math inline">\(C\)</span> 是类别数目，<span class="math inline">\(\mathbf{y}_v\)</span> 是节点 <span class="math inline">\(v\)</span> 的 one-hot 向量，<span class="math inline">\(\mathbf{h}_v\)</span> 是模型输出的节点 <span class="math inline">\(v\)</span> 的向量表示。</p>
+<ol start="2" type="1">
 <li><strong>无监督学习</strong></li>
 </ol>
-<p>使用负采样技术，最小化如下的损失函数：<br>$$<br>\mathcal{L} &#x3D; - \sum_{(u,v) \in \Omega} \log \sigma (\mathbf{h}<em>u^\mathsf{T} \cdot \mathbf{h}<em>v) - \sum</em>{(u^{\prime},v^{\prime}) \in \Omega ^ {-}} \log \sigma ( - \mathbf{h}</em>{u^{\prime}}^\mathsf{T} \cdot \mathbf{h}_v^{\prime})<br>$$<br>其中，$\Omega$ 是正样本集合，$\Omega^{-}$ 是负样本集合。</p>
-<h2 id="四、实验"><a href="#四、实验" class="headerlink" title="四、实验"></a>四、实验</h2><h3 id="1-数据集"><a href="#1-数据集" class="headerlink" title="1.数据集"></a>1.数据集</h3><p>采用三个数据集DBLP，ACM和IMDB。数据集统计信息如下：</p>
-<p><img src="/2022/12/14/MAGNN/fig5.png"></p>
-<h3 id="2-实验结果"><a href="#2-实验结果" class="headerlink" title="2.实验结果"></a>2.实验结果</h3><ol>
+<p>使用负采样技术，最小化如下的损失函数： <span class="math display">\[
+\mathcal{L} = - \sum_{(u,v) \in \Omega} \log \sigma (\mathbf{h}_u^\mathsf{T} \cdot \mathbf{h}_v) - \sum_{(u^{\prime},v^{\prime}) \in \Omega ^ {-}} \log \sigma ( - \mathbf{h}_{u^{\prime}}^\mathsf{T} \cdot \mathbf{h}_{v^{\prime}})
+\]</span> 其中，<span class="math inline">\(\Omega\)</span> 是正样本集合，<span class="math inline">\(\Omega^{-}\)</span> 是负样本集合。</p>
+<h2 id="四实验">四、实验</h2>
+<h3 id="数据集">1.数据集</h3>
+<p>采用三个数据集IMDB，DBLP和Last.fm。数据集统计信息如下：</p>
+<p><img src="fig5.png" /></p>
+<h3 id="实验结果">2.实验结果</h3>
+<ol type="1">
 <li>节点分类实验结果</li>
 </ol>
-<p><img src="/2022/12/14/MAGNN/fig6.png"></p>
-<ol start="2">
+<p><img src="fig6.png" /></p>
+<ol type="1">
 <li>节点聚类实验结果</li>
 </ol>
-<p><img src="/2022/12/14/MAGNN/fig7.png"></p>
-<ol start="3">
+<p><img src="fig7.png" /></p>
+<ol type="1">
 <li>链路预测实验结果</li>
 </ol>
-<p><img src="/2022/12/14/MAGNN/fig8.png"></p>
-<h3 id="3-消融实验"><a href="#3-消融实验" class="headerlink" title="3. 消融实验"></a>3. 消融实验</h3><ul>
-<li>$\mathrm{MAGNN} _{rot}$ 使用了relation rotation encoder，作为参考模型；</li>
-<li>$\mathrm{MAGNN} _{feat}$ 没有使用节点内容特征；</li>
-<li>$\mathrm{MAGNN} _{nb}$ 只考虑了基于元路径的邻居；</li>
-<li>$\mathrm{MAGNN} _{sm}$ 考虑了单个最好的元路径；</li>
-<li>$\mathrm{MAGNN} _{avg}$ 使用了mean对元路径实例进行编码；</li>
-<li>$\mathrm{MAGNN} _{linear}$ 使用了linear对元路径实例进行编码。</li>
+<p><img src="fig8.png" /></p>
+<h3 id="消融实验">3. 消融实验</h3>
+<ul>
+<li><span class="math inline">\(\mathrm{MAGNN} _{rot}\)</span> 使用了relation rotation encoder，作为参考模型；</li>
+<li><span class="math inline">\(\mathrm{MAGNN} _{feat}\)</span> 没有使用节点内容特征；</li>
+<li><span class="math inline">\(\mathrm{MAGNN} _{nb}\)</span> 只考虑了基于元路径的邻居；</li>
+<li><span class="math inline">\(\mathrm{MAGNN} _{sm}\)</span> 考虑了单个最好的元路径；</li>
+<li><span class="math inline">\(\mathrm{MAGNN} _{avg}\)</span> 使用了mean对元路径实例进行编码；</li>
+<li><span class="math inline">\(\mathrm{MAGNN} _{linear}\)</span> 使用了linear对元路径实例进行编码。</li>
 </ul>
-<p><img src="/2022/12/14/MAGNN/fig9.png"></p>
-<p>$\mathrm{MAGNN} _{nb}$ 和 $\mathrm{MAGNN} _{avg}$ , $\mathrm{MAGNN} _{linear}$ , $\mathrm{MAGNN} _{rot}$ 相比，可以看出<strong>聚合元路径实例比 metapath-based 邻居带来的提升更多</strong>，验证了<strong>元路径内部聚合（intra-metapath aggregation）的有效性</strong>。</p>
-<p>比较 $\mathrm{MAGNN} _{sm}$ 和 $\mathrm{MAGNN} _{rot}$ 可以看出<strong>元路径间聚合（intre-metapath aggregation）的有效性</strong>。</p>
-<p>比较$\mathrm{MAGNN} _{avg}$, $\mathrm{MAGNN} _{linear}$ , $\mathrm{MAGNN} _{rot}$ 可以看出，<strong>使用 relational rotation encoder 可带来提升</strong>。这三个变形都比目前最好的 baseline HAN 要表现好。</p>
-<h3 id="4-可视化"><a href="#4-可视化" class="headerlink" title="4. 可视化"></a>4. 可视化</h3><p><img src="/2022/12/14/MAGNN/fig10.png"></p>
+<p><img src="fig9.png" /></p>
+<p><span class="math inline">\(\mathrm{MAGNN} _{nb}\)</span> 和 <span class="math inline">\(\mathrm{MAGNN} _{avg}\)</span> , <span class="math inline">\(\mathrm{MAGNN} _{linear}\)</span> , <span class="math inline">\(\mathrm{MAGNN} _{rot}\)</span> 相比，可以看出<strong>聚合元路径实例比 metapath-based 邻居带来的提升更多</strong>，验证了<strong>元路径内部聚合（intra-metapath aggregation）的有效性</strong>。</p>
+<p>比较 <span class="math inline">\(\mathrm{MAGNN} _{sm}\)</span> 和 <span class="math inline">\(\mathrm{MAGNN} _{rot}\)</span> 可以看出<strong>元路径间聚合（intre-metapath aggregation）的有效性</strong>。</p>
+<p>比较<span class="math inline">\(\mathrm{MAGNN} _{avg}\)</span>, <span class="math inline">\(\mathrm{MAGNN} _{linear}\)</span> , <span class="math inline">\(\mathrm{MAGNN} _{rot}\)</span> 可以看出，<strong>使用 relational rotation encoder 可带来提升</strong>。这三个变形都比目前最好的 baseline HAN 要表现好。</p>
+<h3 id="可视化">4. 可视化</h3>
+<p><img src="fig10.png" /></p>
 
     </div>
 
@@ -408,6 +441,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
