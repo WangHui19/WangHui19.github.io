@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding | 我的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络 论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2002.01680.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;cynricfu&#x2F;MAGNN 论文发表：WWW 2020">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding">
+<meta property="og:url" content="https://wanghui19.github.io/2022/12/14/MAGNN/index.html">
+<meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络 论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2002.01680.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;cynricfu&#x2F;MAGNN 论文发表：WWW 2020">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wanghui19.github.io/fig0.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig1.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig2.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig3.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig4.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig5.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig6.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig7.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig8.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig9.png">
+<meta property="og:image" content="https://wanghui19.github.io/fig10.png">
+<meta property="article:published_time" content="2022-12-14T02:40:25.000Z">
+<meta property="article:modified_time" content="2022-12-24T10:23:54.496Z">
+<meta property="article:author" content="Mr.Wang">
+<meta property="article:tag" content="异质图学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wanghui19.github.io/fig0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="我的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">我的个人博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习与生活</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wanghui19.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MAGNN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/14/MAGNN/" class="article-date">
+  <time class="dt-published" datetime="2022-12-14T02:40:25.000Z" itemprop="datePublished">2022-12-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="/fig0.png"></p>
+<p>论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2002.01680.pdf">https://arxiv.org/pdf/2002.01680.pdf</a></p>
+<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/cynricfu/MAGNN">https://github.com/cynricfu/MAGNN</a></p>
+<p>论文发表：WWW 2020</p>
+<span id="more"></span>
+
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>本文提出MAGNN模型，围绕元路径的聚合问题展开。元路径聚合主要有两部分，元路径内部的聚合、元路径之间的聚合。同时，在建模过程中结合了节点的属性信息。</p>
+<p>现有的基于元路径的嵌入学习方法有以下的局限性：</p>
+<ol>
+<li><strong>忽略了节点的属性信息</strong>，不能很好的处理节点属性特征丰富的异质图。例如 metapath2vec, ESim, HIN2vec, HERec 。</li>
+<li><strong>舍弃了元路径内部的节点信息</strong>，只考虑元路径的起始节点和末尾节点，造成信息损失。例如 HERec, HAN 。</li>
+<li><strong>只依赖于单个路径</strong>，因此需要人工选择元路径，丢失了来自其他元路径的部分信息，导致性能不佳。例如 metapath2vec 。</li>
+</ol>
+<p>为解决上述问题，本文提出 MAGNN: Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</p>
+<h2 id="定义和符号"><a href="#定义和符号" class="headerlink" title="定义和符号"></a>定义和符号</h2><p>异质图、元路径、元路径实例不在赘述。<br>相关图示如下：</p>
+<p><img src="/fig1.png"></p>
+<p><strong>Metapath-based Neighbor</strong>：<br>给定异质图中的一个元路径 $P$ ，节点 $v$ 的 metapath-based 邻居 $\mathcal{N}^P_v$ 为和 $v$ 相连的遵循元路径 $P$ 的模式的节点集合。由两个不同的元路径实例与 $v$ 相连的同一个邻居节点，被视为 $\mathcal{N}^P_v$ 中的两个节点。另外，如果元路径 $P$ 是对称的，$\mathcal{N}^P_v$ 中也包含节点 $v$ 自身。</p>
+<p><strong>Metapath-based Graph</strong>：<br>给定异质图 $\mathcal{G}$ 中的元路径 $P$ ，基于元路径的图 $\mathcal{G}^P$ 由原始图 $\mathcal{G}$ 中所有的基于元路径 $P$ 的邻居点对组成（去掉了元路径实例的中间节点，只保留了元路径实例两端的节点，并在两点间建立起连边）。如果元路径 $P$ 是对称的，则 $\mathcal{G}^P$ 是同质图。如上图(d)所示。</p>
+<p><strong>异质图嵌入</strong>：<br>给定 $\mathcal{G}&#x3D;(\mathcal{V}, \mathcal{E} )$ 和节点属性矩阵 $\mathbf{X} _ {A_i} \in \mathbb{R}^{ | \mathcal{V} _ {A_i} | \times d_{A_i} }$ ，其中 $A_i$ 表示节点类型，异质图嵌入学习的目的是从图中捕获到丰富的结构信息和语义信息，从而为每个节点学习到 $d$ 维的表示 $\mathbf{h}_v\in \mathbb{R}^d$ 。</p>
+<p><img src="/fig2.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>MAGNN由<strong>节点内容转换</strong>、<strong>元路径内部聚合</strong>、<strong>元路径间的聚合</strong>三部分组成，下图展示了一个节点的嵌入生成过程。</p>
+<p><img src="/fig3.png"></p>
+<h3 id="Node-Content-Transformation"><a href="#Node-Content-Transformation" class="headerlink" title="Node Content Transformation"></a>Node Content Transformation</h3><p>异质图中的不同类型的节点有着不同的属性，因此不同类型的节点的特征向量可能有着不同的维度，即使碰巧维度相同，特征向量也应该属于不同的特征空间。</p>
+<p>为了方便统一处理，需要<strong>将这些不同类型的节点的特征映射到同一个隐层的向量空间中</strong>。具体方法就是对每种类型的节点都使用一个特定的线性转换，来将节点的特征向量转换到同一个隐层的特征空间中。对于类别为 $A\in \mathcal{A}$ 的节点 $v\in \mathcal{V} _ {A}$ ，进行如下的转换：<br>$$<br>\mathbf{h}_{v}^{\prime}&#x3D;\mathbf{W}_{A} \cdot \mathbf{x}_{v}^{A}<br>$$<br>其中 $x_v\in \mathbb{R}^{d_A}$ 是原始的特征向量， $\mathbf{h}^{\prime}_v\in \mathbb{R}^{d^{\prime}}$ 是映射后的节点 $v$ 的特征向量。 $W_A\in \mathbb{R}^{d^{\prime}\times d_A}$ 是对于类型为 $A$ 的节点的参数化权重矩阵。</p>
+<h3 id="Intra-metapath-Aggregation"><a href="#Intra-metapath-Aggregation" class="headerlink" title="Intra-metapath Aggregation"></a>Intra-metapath Aggregation</h3><p>给定元路径 $P$，元路径内部聚合层通过对 $P$ 的元路径实例编码，可以学习到 <strong>目标节点、基于元路径的邻居节点、节点之间的上下文</strong> 中嵌入的结构信息和语义信息。</p>
+<p>定义连接目标节点 $v$ 和它的 metapath-based 邻居节点 $u\in \mathcal{N}^P_v$ 为 $P(v, u)$ 。</p>
+<p>定义 $P(v, u)$ 的内部节点为 ${ {m^{P(v, u)} }}&#x3D;P(v, u)\setminus{ {u, v} }$ 。</p>
+<p><strong>元路径内部聚合采用了特殊的元路径实例编码器</strong>（metapath instance encoder）将元路径实例中的所有节点的特征转换成向量 $\mathbf{h}_{P(v,u)}\in \mathbb{R}^{d^{\prime}}$ :<br>$$<br>\mathbf{h}_{P(v, u)}&#x3D;f_{\theta}(P(v, u))&#x3D;f_{\theta}\left(\mathbf{h}_{v}^{\prime}, \mathbf{h}_{u}^{\prime},\left{\mathbf{h}_{t}^{\prime}, \forall t \in \left{m^{P(v, u)}\right }\right } \right)<br>$$<br>节点 $v, u$ 之间可能存在多个元路径实例，第4小节介绍了限定的 metapath instance encoder 的几种选择。</p>
+<p><strong>接着使用图注意力层（graph attention layer）加权聚合</strong>针对目标节点 $v$ 的且元路径为 $P$ 的多个元路径实例：<br>$$<br>\begin{aligned}<br>e_{v u}^{P} &amp; &#x3D;\operatorname{LeakyReLU}\left(\mathbf{a}_{P}^{\top} \cdot\left[\mathbf{h}<em>{v}^{\prime} | \mathbf{h}_{P(v, u)}\right]\right), \<br>\alpha</em>{v u}^{P} &amp; &#x3D;\frac{\exp \left(e_{v u}^{P}\right)}     {\sum_{s \in N_{v}^{P}} \exp \left(e_{v s}^{P}\right)}, \<br>\mathbf{h}_{v}^{P} &amp; &#x3D;\sigma\left(\sum_{u \in \mathcal{N}_{v}^{P}} \alpha_{v u}^{P} \cdot \mathbf{h}_{P(v, u)}\right) .<br>\end{aligned}<br>$$<br>其中 $a_P\in \mathbb{R}^{2d^{\prime}}$ 是元路径 $P$ 的参数化的注意力向量。$e^P_{vu}$ 表示元路径实例 $P(v, u)$ 对节点 $v$ 的重要性，然后使用 softmax 进行了归一化，然后使用归一化后的注意力系数对和节点 $v$ 相关的元路径实例的表示进行加权求和。最后再经过一个激活函数。</p>
+<p><strong>上述的注意力机制可以扩展成多头的（multi-heads），这有助于学习过程的稳定，并且可以减小图的异质性带来的高方差：</strong><br>$$<br>\mathbf{h}<em>{v}^{P}&#x3D;|</em>{k&#x3D;1}^{K} \sigma\left(\sum_{u \in N_{v}^{P}}\left[\alpha_{v u}^{P}\right]<em>{k} \cdot \mathbf{h}</em>{P(v, u)}\right)<br>$$</p>
+<p><strong>总结</strong>：<br>给出映射后的特征向量 $h^{\prime}_u\in \mathbb{R}^{d^{\prime}}, \forall u\in \mathcal{V}$，以及一组元路径 $\mathcal{P}_A&#x3D;{ {P_1, P_2, …, P_M} }$。<strong>内部元路径聚合</strong>为目标节点 $v$ 生成 $M$ 个针对特定元路径的向量表示，记为 ${ {h^{P_1}_v,h^{P_2}_v, …, h^{P_M}_v } }$，每个 $h^{P_i}_v\in \mathbb{R}^{d{\prime}}$（假定K&#x3D;1）都表示了节点 $v$ 中隐含的一种语义信息。</p>
+<h3 id="Inter-metapath-Aggregation"><a href="#Inter-metapath-Aggregation" class="headerlink" title="Inter-metapath Aggregation"></a>Inter-metapath Aggregation</h3><p><strong>使用元路径间的聚合层结合所有元路径的语义信息。</strong></p>
+<p>从上一步可知，对于类型为 $A$ 的节点，生成了 $|\mathcal{V}_A|$ 组隐层向量：${ {h^{P_1}_v, h^{P_2}_v, …, h^{P_M}_v} }, v\in \mathcal{V}_A$，$M$ 是 $A$ 类型节点的元路径数目。使用注意力机制为不同的元路径分配不同的权重。</p>
+<p><strong>首先，针对每条元路径</strong> $P_i\in \mathcal{P}<em>A$ ，对所有类型为 $A$ 的节点在特定元路径下的节点向量进行转换，然后取平均：<br>$$<br>\mathbf{s}</em>{P_{i}}&#x3D;\frac{1}{\left|\mathcal{V}<em>{A}\right|} \sum</em>{v \in \mathcal{V}<em>{A}} \tanh \left(\mathbf{M}</em>{A} \cdot \mathbf{h}<em>{v}^{P</em>{i}}+\mathbf{b}_{A}\right)<br>$$<br>其中 $M_A\in \mathbb{R}^{d_m\times d^{‘}}, b_A\in \mathbb{R}^{d_m}$ 为可学习到的参数。</p>
+<p><strong>然后使用注意力机制混合特定元路径下的节点 $v$ 的特征向量</strong>：<br>$$<br>\begin{array}{l}<br>e_{P_{i}}&#x3D;\mathbf{q}<em>{A}^{\top} \cdot \mathbf{s}</em>{P_{i}}, \<br>\beta_{P_{i}}&#x3D;\frac{\exp \left(e_{P_{i}}\right)}{\sum_{P \in \mathcal{P}<em>{A}} \exp \left(e</em>{P}\right)}, \<br>\mathbf{h}<em>{v}^{\mathcal{P}</em>{A}}&#x3D;\sum_{P \in \mathcal{P}<em>{A}} \beta</em>{P} \cdot \mathbf{h}<em>{v}^{P}<br>\end{array}<br>$$<br>其中 $q_A\in \mathbb{R}^{d_m}$ 为参数化的针对 $A$ 类型节点的注意力向量。$\beta</em>{P_i}$ 可解释为元路径 $P_i$ 对于 $A$ 类型节点的重要性。使用这个注意力系数对节点 $v$ 的所有针对特定元路径的向量进行加权求和。</p>
+<p><strong>最后，MAGNN使用线性转换和一层非线性函数，将节点嵌入映射到输出所需维度的向量空间：</strong><br>$$<br>\mathbf{h}<em>{v}&#x3D;\sigma\left(\mathbf{W}</em>{o} \cdot \mathbf{h}<em>{v}^{\mathcal{P}</em>{A}}\right)<br>$$<br>其中 $W_o\in \mathbb{R}^{d_o\times d^{\prime}}$ 是权重矩阵，$\sigma(\cdot)$ 是激活函数。</p>
+<p><strong>这个映射针对具体任务有所不同</strong>，可以看成是用于节点分类的线性分类器，也可看成是带有节点间相似度度量的空间投影，可用于链接预测。</p>
+<h3 id="Metapath-Instance-Encoders"><a href="#Metapath-Instance-Encoders" class="headerlink" title="Metapath Instance Encoders"></a>Metapath Instance Encoders</h3><p>本节对应第2小节中的元路径实例编码函数 $f_{\theta}$ ，作者给出了三个候选的编码函数：</p>
+<ol>
+<li><strong>Mean encoder</strong>：<br>$$<br>\mathbf{h}<em>{P(v, u)}&#x3D;\operatorname{MEAN}\left(\left{\mathbf{h}</em>{t}^{\prime}, \forall t \in P(v, u)\right}\right)<br>$$</li>
+<li><strong>Linear encoder</strong>：<br>是 mean encoder 的扩展，区别在于添加了一个线性转换。<br>$$<br>\mathbf{h}<em>{P(v, u)}&#x3D;\mathbf{W}</em>{P} \cdot \operatorname{MEAN}\left(\left{\mathbf{h}_{t}^{\prime}, \forall t \in P(v, u)\right}\right)<br>$$</li>
+<li><strong>Relational rotation encoder</strong>：<br>基于在复杂空间的关系旋转（relation rotation）的元路径实例编码器。这一操作是RotatE提出的，原文做的是知识图谱的嵌入学习。</li>
+</ol>
+<p>mean encoder 和 linear encoder 将元路径实例看作了一个集合，忽视了元路径序列结构中嵌入的信息。关系旋转的方法提供了建模这一类知识的方法。</p>
+<p>给定 $P(v, u)&#x3D;(t_0, t_1, …, t_n), t_0&#x3D;u, t_n&#x3D;v$，$R_i$ 为节点 $t_{i-1}, t_i$ 之间的关系。令 $\mathbf{r}<em>i$ 为 $R_i$ 的向量表示。Relational rotation encoder可形式化为：<br>$$<br>\begin{array}{l}<br>\mathbf{o}</em>{0}&#x3D;\mathbf{h}<em>{t</em>{0}}^{\prime}&#x3D;\mathbf{h}<em>{u}^{\prime} \<br>\mathbf{o}</em>{i}&#x3D;\mathbf{h}<em>{t</em>{i}}^{\prime}+\mathbf{o}<em>{i-1} \odot \mathbf{r}</em>{i}, \<br>\mathbf{h}<em>{P(v, u)}&#x3D;\frac{\mathbf{o}</em>{n}}{n+1}<br>\end{array}<br>$$<br>其中，$\mathbf{h}^{\prime}_{t_i}, \mathbf{r}<em>i$ 是复杂的向量，$\odot$ 表示元素间乘积。可将 $d^{\prime}$ 维的真实向量 $\mathbf{h}</em>{P(v,u)}$ 看成是一个复杂的向量，它的前 $d^{\prime}&#x2F;2$ 维是真实的部分，后 $d^{\prime}&#x2F;2$ 为虚构的部分。</p>
+<p><strong>MAGNN前向传播算法如下</strong>：</p>
+<p><img src="/fig4.png"></p>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>经过上述的三个部分，得到了最终的节点表示，可用于下游任务。</p>
+<p>由于不同任务的特点不同，而且不一定能得到节点标签。因此为MAGNN设计了两种学习范式：<strong>半监督学习、无监督学习</strong>。</p>
+<ol>
+<li><strong>半监督学习</strong></li>
+</ol>
+<p>最小化交叉熵损失：<br>$$<br>\mathcal{L} &#x3D; -\sum_{v \in \mathcal{V}<em>{L}} \sum</em>{c&#x3D;1}^{C} \mathrm{y}_{v}[c]\cdot \log{h_v}[c]<br>$$<br>其中，$\mathcal{V}_L$ 是有标签的节点集合，$C$ 是类别数目，$\mathbf{y}_v$ 是节点 $v$ 的 one-hot 向量，$\mathbf{h}_v$ 是模型输出的节点 $v$ 的向量表示。</p>
+<ol start="2">
+<li><strong>无监督学习</strong></li>
+</ol>
+<p>使用负采样技术，最小化如下的损失函数：<br>$$<br>\mathcal{L} &#x3D; - \sum_{(u,v) \in \Omega} \log \sigma (\mathbf{h}<em>u^\mathsf{T} \cdot \mathbf{h}<em>v) - \sum</em>{(u^{\prime},v^{\prime}) \in \Omega ^ {-}} \log \sigma ( - \mathbf{h}</em>{u^{\prime}}^\mathsf{T} \cdot \mathbf{h}_{v^{\prime}})<br>$$<br>其中，$\Omega$ 是正样本集合，$\Omega^{-}$ 是负样本集合。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>采用三个数据集IMDB，DBLP和Last.fm。数据集统计信息如下：</p>
+<p><img src="/fig5.png"></p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><ol>
+<li>节点分类实验结果</li>
+</ol>
+<p><img src="/fig6.png"></p>
+<ol start="2">
+<li>节点聚类实验结果</li>
+</ol>
+<p><img src="/fig7.png"></p>
+<ol start="3">
+<li>链路预测实验结果</li>
+</ol>
+<p><img src="/fig8.png"></p>
+<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><ul>
+<li>$\mathrm{MAGNN} _{rot}$ 使用了relation rotation encoder，作为参考模型；</li>
+<li>$\mathrm{MAGNN} _{feat}$ 没有使用节点内容特征；</li>
+<li>$\mathrm{MAGNN} _{nb}$ 只考虑了基于元路径的邻居；</li>
+<li>$\mathrm{MAGNN} _{sm}$ 考虑了单个最好的元路径；</li>
+<li>$\mathrm{MAGNN} _{avg}$ 使用了mean对元路径实例进行编码；</li>
+<li>$\mathrm{MAGNN} _{linear}$ 使用了linear对元路径实例进行编码。</li>
+</ul>
+<p><img src="/fig9.png"></p>
+<p>$\mathrm{MAGNN} _{nb}$ 和 $\mathrm{MAGNN} _{avg}$ , $\mathrm{MAGNN} _{linear}$ , $\mathrm{MAGNN} _{rot}$ 相比，可以看出<strong>聚合元路径实例比 metapath-based 邻居带来的提升更多</strong>，验证了<strong>元路径内部聚合（intra-metapath aggregation）的有效性</strong>。</p>
+<p>比较 $\mathrm{MAGNN} _{sm}$ 和 $\mathrm{MAGNN} _{rot}$ 可以看出<strong>元路径间聚合（intre-metapath aggregation）的有效性</strong>。</p>
+<p>比较$\mathrm{MAGNN} _{avg}$, $\mathrm{MAGNN} _{linear}$ , $\mathrm{MAGNN} _{rot}$ 可以看出，<strong>使用 relational rotation encoder 可带来提升</strong>。这三个变形都比目前最好的 baseline HAN 要表现好。</p>
+<h3 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h3><p><img src="/fig10.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2022/12/14/MAGNN/" data-id="cuidln7rcjPeC54stX4D5FNNd" data-title="【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">异质图学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github%20Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">如何在Github Page渲染LaTex格式数学公式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E4%B8%AD%E7%AD%89%E9%A2%98/">中等题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E7%AE%80%E5%8D%95%E9%A2%98/">简单题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Latex/" rel="tag">Latex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MathJax/" rel="tag">MathJax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">异质图学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" rel="tag">数学公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Latex/" style="font-size: 10px;">Latex</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/MathJax/" style="font-size: 10px;">MathJax</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">异质图学习</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">数学公式</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/14/MAGNN/">【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/04/%E5%A6%82%E4%BD%95%E5%9C%A8Github%20Page%E6%B8%B2%E6%9F%93LaTex%E6%A0%BC%E5%BC%8F%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/">如何在Github Page渲染LaTex格式数学公式</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/04/HGNN-AC/">【论文阅读】Heterogeneous Graph Neural Network via Attribute Completion</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/27/q2-add-two-numbers/">q2-两数相加</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/24/q1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">q1-两数之和</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 Mr.Wang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
