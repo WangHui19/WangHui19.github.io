@@ -8,7 +8,7 @@ mathjax: true
 ---
 
 
-![](fig0.png)
+![](/img/MAGNN_fig0.png)
 
 论文标题：MAGNN: 用于异构图嵌入的元路径聚合图神经网络
 
@@ -34,7 +34,7 @@ mathjax: true
 异质图、元路径、元路径实例不在赘述。
 相关图示如下：
 
-![](fig1.png)
+![](/img/MAGNN_fig1.png)
 
 **Metapath-based Neighbor**：
 给定异质图中的一个元路径 $P$ ，节点 $v$ 的 metapath-based 邻居 $\mathcal{N}^P_v$ 为和 $v$ 相连的遵循元路径 $P$ 的模式的节点集合。由两个不同的元路径实例与 $v$ 相连的同一个邻居节点，被视为 $\mathcal{N}^P_v$ 中的两个节点。另外，如果元路径 $P$ 是对称的，$\mathcal{N}^P_v$ 中也包含节点 $v$ 自身。
@@ -45,12 +45,12 @@ mathjax: true
 **异质图嵌入**：
 给定 $\mathcal{G}=(\mathcal{V}, \mathcal{E} )$ 和节点属性矩阵 $\mathbf{X} _ {A_i} \in \mathbb{R}^{ | \mathcal{V} \_ {A_i} | \times d_{A_i} }$ ，其中 $A_i$ 表示节点类型，异质图嵌入学习的目的是从图中捕获到丰富的结构信息和语义信息，从而为每个节点学习到 $d$ 维的表示 $\mathbf{h}_v\in \mathbb{R}^d$ 。
 
-![](fig2.png)
+![](/img/MAGNN_fig2.png)
 
 ## 方法
 MAGNN由**节点内容转换**、**元路径内部聚合**、**元路径间的聚合**三部分组成，下图展示了一个节点的嵌入生成过程。
 
-![](fig3.png)
+![](/img/MAGNN_fig3.png)
 
 ### Node Content Transformation
 异质图中的不同类型的节点有着不同的属性，因此不同类型的节点的特征向量可能有着不同的维度，即使碰巧维度相同，特征向量也应该属于不同的特征空间。
@@ -150,7 +150,7 @@ $$
 
 **MAGNN前向传播算法如下**：
 
-![](fig4.png)
+![](/img/MAGNN_fig4.png)
 
 ### 训练
 经过上述的三个部分，得到了最终的节点表示，可用于下游任务。
@@ -177,20 +177,20 @@ $$
 ### 数据集
 采用三个数据集IMDB，DBLP和Last.fm。数据集统计信息如下：
 
-![](fig5.png)
+![](/img/MAGNN_fig5.png)
 
 ### 实验结果
 1. 节点分类实验结果
 
-![](fig6.png)
+![](/img/MAGNN_fig6.png)
 
 2. 节点聚类实验结果
 
-![](fig7.png)
+![](/img/MAGNN_fig7.png)
 
 3. 链路预测实验结果
 
-![](fig8.png)
+![](/img/MAGNN_fig8.png)
 
 ### 消融实验
 * $\mathrm{MAGNN} _{rot}$ 使用了relation rotation encoder，作为参考模型；
@@ -200,7 +200,7 @@ $$
 * $\mathrm{MAGNN} _{avg}$ 使用了mean对元路径实例进行编码；
 * $\mathrm{MAGNN} _{linear}$ 使用了linear对元路径实例进行编码。
 
-![](fig9.png)
+![](/img/MAGNN_fig9.png)
 
 $\mathrm{MAGNN} _{nb}$ 和 $\mathrm{MAGNN} _{avg}$ , $\mathrm{MAGNN} _{linear}$ , $\mathrm{MAGNN} _{rot}$ 相比，可以看出**聚合元路径实例比 metapath-based 邻居带来的提升更多**，验证了**元路径内部聚合（intra-metapath aggregation）的有效性**。
 
@@ -210,4 +210,4 @@ $\mathrm{MAGNN} _{nb}$ 和 $\mathrm{MAGNN} _{avg}$ , $\mathrm{MAGNN} _{linear}$ 
 
 ### 可视化
 
-![](fig10.png)
+![](/img/MAGNN_fig10.png)
