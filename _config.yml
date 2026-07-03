@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 我的个人博客
+title: Mr.Wang的个人博客
 subtitle: 记录学习与生活
 description: 分享技术笔记、日常心得
 keywords: 技术,博客,学习
@@ -104,3 +104,6 @@ deploy:
   type: git
   repo: https://github.com/wanghui19/wanghui19.github.io
   branch: gh-pages
+
+# 支持添加Latex数学公式
+markdown: kramdown
