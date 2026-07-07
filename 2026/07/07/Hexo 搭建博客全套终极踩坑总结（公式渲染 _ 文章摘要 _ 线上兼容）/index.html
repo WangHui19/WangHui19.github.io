@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容） | Mr.Wang的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文整理了 Hexo 建站高频踩坑解决方案，针对 LaTeX 公式线上失效、CDN 报错、下划线转义冲突、首页无摘要、线上线下渲染不一致等常见问题，汇总出一套可长期复用的稳定配置方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 搭建博客全套终极踩坑总结（公式渲染 &#x2F; 文章摘要 &#x2F; 线上兼容）">
+<meta property="og:url" content="https://wanghui19.github.io/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/index.html">
+<meta property="og:site_name" content="Mr.Wang的个人博客">
+<meta property="og:description" content="本文整理了 Hexo 建站高频踩坑解决方案，针对 LaTeX 公式线上失效、CDN 报错、下划线转义冲突、首页无摘要、线上线下渲染不一致等常见问题，汇总出一套可长期复用的稳定配置方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-07T06:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-07T07:01:13.304Z">
+<meta property="article:author" content="Mr.Wang">
+<meta property="article:tag" content="Hexo 博客搭建 技术踩坑">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr.Wang的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="/.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<!-- MathJax v3 LaTeX渲染 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    ams: true // 开启aligned多行公式支持
+  },
+  svg: { fontCache: 'global' },
+  startup: { typeset: true }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-ams.js">
+</script>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr.Wang的个人博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习与生活</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wanghui19.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Hexo 搭建博客全套终极踩坑总结（公式渲染 _ 文章摘要 _ 线上兼容）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2026-07-07T06:00:00.000Z" itemprop="datePublished">2026-07-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本文整理了 Hexo 建站高频踩坑解决方案，针对 LaTeX 公式线上失效、CDN 报错、下划线转义冲突、首页无摘要、线上线下渲染不一致等常见问题，汇总出一套可长期复用的稳定配置方案。</p>
+<span id="more"></span>
+
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>Hexo 多数异常并非代码错误，而是由缓存机制、线上线下环境差异、CDN 兼容问题导致。本文统一标准化配置，保证本地与线上渲染效果完全一致。</p>
+<h2 id="二、LaTeX-数学公式渲染终极方案（彻底解决-404-失效-乱码）"><a href="#二、LaTeX-数学公式渲染终极方案（彻底解决-404-失效-乱码）" class="headerlink" title="二、LaTeX 数学公式渲染终极方案（彻底解决 404 &#x2F; 失效 &#x2F; 乱码）"></a>二、LaTeX 数学公式渲染终极方案（彻底解决 404 &#x2F; 失效 &#x2F; 乱码）</h2><h3 id="2-1-传统-MathJax-CDN-方案（彻底废弃）"><a href="#2-1-传统-MathJax-CDN-方案（彻底废弃）" class="headerlink" title="2.1 传统 MathJax CDN 方案（彻底废弃）"></a>2.1 传统 MathJax CDN 方案（彻底废弃）</h3><p>网络上主流的 MathJax 前端 CDN 方案存在多处致命缺陷，完全不推荐使用：</p>
+<ul>
+<li><p>境外 CDN 国内极易出现 404、超时、拦截问题</p>
+</li>
+<li><p>Markdown 下划线语法与公式下标冲突，公式会被误解析为斜体</p>
+</li>
+<li><p>本地预览正常，GitHub Pages 线上公式直接失效</p>
+</li>
+<li><p>依赖前端 JS 异步加载，存在公式延迟、闪屏、卡顿问题</p>
+</li>
+</ul>
+<p><strong>最终结论：<strong><strong>彻底放弃</strong></strong> MathJax 前端 CDN 方案。</strong></p>
+<h3 id="2-2-最终稳定方案：hexo-math-服务端预渲染-KaTeX"><a href="#2-2-最终稳定方案：hexo-math-服务端预渲染-KaTeX" class="headerlink" title="2.2 最终稳定方案：hexo-math 服务端预渲染 KaTeX"></a>2.2 最终稳定方案：hexo-math 服务端预渲染 KaTeX</h3><p>采用 hexo-math + KaTeX 服务端预渲染，核心优势：编译阶段直接将公式渲染为静态 HTML，无需前端 JS 和外部 CDN，彻底消除线上线下渲染差异。</p>
+<h4 id="1-安装插件"><a href="#1-安装插件" class="headerlink" title="1. 安装插件"></a>1. 安装插件</h4><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-math --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-清理冲突旧插件（关键）"><a href="#2-清理冲突旧插件（关键）" class="headerlink" title="2. 清理冲突旧插件（关键）"></a>2. 清理冲突旧插件（关键）</h4><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-kramed markdown-it-katex hexo-renderer-markdown-it --save</span><br><span class="line">npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-全局最终配置（线上可用版本）"><a href="#3-全局最终配置（线上可用版本）" class="headerlink" title="3. 全局最终配置（线上可用版本）"></a>3. 全局最终配置（线上可用版本）</h4><p><code>_config.yml</code></p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">math:</span><br><span class="line">  katex:</span><br><span class="line">    css: true</span><br><span class="line">    options:</span><br><span class="line">      throwOnError: false</span><br><span class="line">      strict: false</span><br><span class="line">      trust: true</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键配置：css: true 必须开启，否则线上环境缺失样式，公式直接失效。</strong></p>
+<h4 id="4-全网统一公式书写规范（根治转义问题）"><a href="#4-全网统一公式书写规范（根治转义问题）" class="headerlink" title="4. 全网统一公式书写规范（根治转义问题）"></a>4. 全网统一公式书写规范（根治转义问题）</h4><p>废弃传统 <code>$$</code>、<code>$ $</code> 公式写法，统一使用标签式渲染，根治语法转义问题：</p>
+<p>行内公式：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% katex %&#125;x^2+y^2=1&#123;% endkatex %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>块级公式：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% katex %&#125;</span><br><span class="line">a = \frac&#123;b&#125;&#123;c&#125;</span><br><span class="line">&#123;% endkatex %&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-生效命令"><a href="#5-生效命令" class="headerlink" title="5. 生效命令"></a>5. 生效命令</h4><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、博客首页文章显示全文、没有摘要问题解决"><a href="#三、博客首页文章显示全文、没有摘要问题解决" class="headerlink" title="三、博客首页文章显示全文、没有摘要问题解决"></a>三、博客首页文章显示全文、没有摘要问题解决</h2><h3 id="3-1-问题原因"><a href="#3-1-问题原因" class="headerlink" title="3.1 问题原因"></a>3.1 问题原因</h3><p>Hexo 默认规则：文章无截断标记，首页将完整展示全文内容。</p>
+<h3 id="3-2-标准正确写法"><a href="#3-2-标准正确写法" class="headerlink" title="3.2 标准正确写法"></a>3.2 标准正确写法</h3><p>文章简介内容结束后，单独另起一行添加截断标签：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意：带空格的 <code>&lt;!-- more --&gt;</code> 为无效写法</p>
+<h3 id="3-3-兜底方案"><a href="#3-3-兜底方案" class="headerlink" title="3.3 兜底方案"></a>3.3 兜底方案</h3><p>可在文章头部配置项中直接自定义固定摘要，无需截断标签：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: xxx</span><br><span class="line">excerpt: 这里写文章摘要</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、线上线下渲染不一致核心原因"><a href="#四、线上线下渲染不一致核心原因" class="headerlink" title="四、线上线下渲染不一致核心原因"></a>四、线上线下渲染不一致核心原因</h2><ul>
+<li><p>本地预览不启用缓存，线上环境强缓存，修改配置后必须执行 <code>hexo clean</code></p>
+</li>
+<li><p>本地路径容错性高，GitHub Pages 路径严格区分大小写，极易裂图失效</p>
+</li>
+<li><p>MathJax 依赖前端动态渲染，线上易加载失败；KaTeX 服务端渲染无外部依赖，稳定性拉满</p>
+</li>
+<li><p><code>css: false</code> 仅本地调试可用，部署线上会直接导致公式样式丢失</p>
+</li>
+</ul>
+<h2 id="五、日常固定使用命令（一套用到毕业）"><a href="#五、日常固定使用命令（一套用到毕业）" class="headerlink" title="五、日常固定使用命令（一套用到毕业）"></a>五、日常固定使用命令（一套用到毕业）</h2><p>日常开发仅需两套固定命令，适配预览与部署：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+<p>线上部署：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、最终稳定环境总结"><a href="#六、最终稳定环境总结" class="headerlink" title="六、最终稳定环境总结"></a>六、最终稳定环境总结</h2><ul>
+<li><p>公式渲染：优先使用 hexo-math + KaTeX 服务端渲染，彻底舍弃 MathJax</p>
+</li>
+<li><p>缓存机制：所有配置、文章修改后，必须 clean 重建，规避缓存异常</p>
+</li>
+<li><p>资源路径：图片统一使用绝对路径 <code>/img/xxx.png</code>，避免裂图问题</p>
+</li>
+</ul>
+<blockquote>
+<p>（注：部分内容可能由 AI 生成）</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/" data-id="cuidUWKUtuKlWjkKL4WfT_pL_" data-title="Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" rel="tag">Hexo 博客搭建 技术踩坑</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/07/07/Java%20%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%EF%BC%88%E5%90%88%E5%B9%B6%E3%80%81Set%E5%8E%BB%E9%87%8D%E3%80%81%E6%95%B0%E5%80%BC%E9%99%8D%E5%BA%8F%E3%80%81Stream%E9%81%BF%E5%9D%91%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Java 十六进制数组处理实战总结（合并、Set去重、数值降序、Stream避坑）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84/">Java 十六进制数组</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E4%B8%AD%E7%AD%89%E9%A2%98/">中等题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E7%AE%80%E5%8D%95%E9%A2%98/">简单题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" rel="tag">Hexo 博客搭建 技术踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" rel="tag">Java 十六进制数组处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">异质图学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">Hexo 博客搭建 技术踩坑</a> <a href="/tags/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">Java 十六进制数组处理</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">异质图学习</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/">Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/07/Java%20%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%EF%BC%88%E5%90%88%E5%B9%B6%E3%80%81Set%E5%8E%BB%E9%87%8D%E3%80%81%E6%95%B0%E5%80%BC%E9%99%8D%E5%BA%8F%E3%80%81Stream%E9%81%BF%E5%9D%91%EF%BC%89/">Java 十六进制数组处理实战总结（合并、Set去重、数值降序、Stream避坑）</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/14/MAGNN/">【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/04/HGNN-AC/">【论文阅读】Heterogeneous Graph Neural Network via Attribute Completion</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/27/q2-add-two-numbers/">q2-两数相加</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 Mr.Wang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
