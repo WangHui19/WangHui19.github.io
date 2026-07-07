@@ -105,5 +105,17 @@ deploy:
   repo: https://github.com/wanghui19/wanghui19.github.io
   branch: gh-pages
 
-# 支持添加Latex数学公式
-markdown: kramdown
+# LaTeX公式服务端渲染配置
+math:
+  katex:
+    css: true       # 关闭前端CSS加载，编译时内嵌样式，无外部请求
+    options:
+      throwOnError: false  # 公式语法错误不阻断页面生成，仅空白展示
+      strict: false
+      trust: true
+      macros:
+        # 预定义论文常用宏（可选，简化重复符号）
+        \N: \mathbb{N}
+        \R: \mathbb{R}
+        \V: \mathcal{V}
+        \E: \mathcal{E}
