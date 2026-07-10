@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版） | Mr.Wang的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、前言在后台管理系统中，传统**字符图片验证码（Kaptcha）**存在辨识度低、用户体验差、容易被机器识别破解等问题。 目前企业级项目主流方案：AJ-Captcha 行为验证码，支持：滑块拼图、文字点选、旋转校验，自带轨迹防刷、AES加密、Redis分布式缓存，完美适配 SpringBoot、JeecgBoot 框架。 本文从原理、原生手写对比、组件讲解、Jeecg 完整整合、常见报错避坑，一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）">
+<meta property="og:url" content="https://wanghui19.github.io/2026/07/10/JeecgBoot%20%E9%9B%86%E6%88%90%20AJ-Captcha%20%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%BB%8E%E9%9B%B6%E8%90%BD%E5%9C%B0+%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/index.html">
+<meta property="og:site_name" content="Mr.Wang的个人博客">
+<meta property="og:description" content="一、前言在后台管理系统中，传统**字符图片验证码（Kaptcha）**存在辨识度低、用户体验差、容易被机器识别破解等问题。 目前企业级项目主流方案：AJ-Captcha 行为验证码，支持：滑块拼图、文字点选、旋转校验，自带轨迹防刷、AES加密、Redis分布式缓存，完美适配 SpringBoot、JeecgBoot 框架。 本文从原理、原生手写对比、组件讲解、Jeecg 完整整合、常见报错避坑，一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-10T08:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T08:21:41.812Z">
+<meta property="article:author" content="Mr.Wang">
+<meta property="article:tag" content="滑块验证码">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr.Wang的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="/.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<!-- MathJax v3 LaTeX渲染 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    ams: true // 开启aligned多行公式支持
+  },
+  svg: { fontCache: 'global' },
+  startup: { typeset: true }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-ams.js">
+</script>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr.Wang的个人博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习与生活</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wanghui19.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/10/JeecgBoot%20%E9%9B%86%E6%88%90%20AJ-Captcha%20%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%BB%8E%E9%9B%B6%E8%90%BD%E5%9C%B0+%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2026-07-10T08:00:00.000Z" itemprop="datePublished">2026-07-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AJ-Captcha-%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/">AJ-Captcha 滑块验证码</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>在后台管理系统中，传统**字符图片验证码（Kaptcha）**存在辨识度低、用户体验差、容易被机器识别破解等问题。</p>
+<p>目前企业级项目主流方案：<strong>AJ-Captcha 行为验证码</strong>，支持：滑块拼图、文字点选、旋转校验，自带轨迹防刷、AES加密、Redis分布式缓存，完美适配 SpringBoot、<strong>JeecgBoot</strong> 框架。</p>
+<p>本文从原理、原生手写对比、组件讲解、Jeecg 完整整合、常见报错避坑，一站式落地。</p>
+<span id="more"></span>
+
+<h2 id="二、两种验证码实现方案对比"><a href="#二、两种验证码实现方案对比" class="headerlink" title="二、两种验证码实现方案对比"></a>二、两种验证码实现方案对比</h2><h3 id="1-原生手写滑块（不推荐生产）"><a href="#1-原生手写滑块（不推荐生产）" class="headerlink" title="1. 原生手写滑块（不推荐生产）"></a>1. 原生手写滑块（不推荐生产）</h3><p>早期纯手写 Java 滑块逻辑：自己绘图、裁剪滑块、计算坐标、维护缓存、判断误差。</p>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>代码量大、重复造轮子</p>
+</li>
+<li><p>无防机器人轨迹校验，极易被脚本破解</p>
+</li>
+<li><p>无加密、容易抓包篡改坐标</p>
+</li>
+<li><p>单机缓存无法集群部署</p>
+</li>
+</ul>
+<h3 id="2-AJ-Captcha-开源组件（企业推荐）"><a href="#2-AJ-Captcha-开源组件（企业推荐）" class="headerlink" title="2. AJ-Captcha 开源组件（企业推荐）"></a>2. AJ-Captcha 开源组件（企业推荐）</h3><p>目前 Java 生态最成熟的行为验证码框架，JeecgBoot 项目首选替代原生验证码方案。</p>
+<p><strong>优势：</strong></p>
+<ul>
+<li><p>开箱即用，无需手动绘图、裁剪、坐标计算</p>
+</li>
+<li><p>自带鼠标轨迹、滑动速度校验，防爬虫脚本</p>
+</li>
+<li><p>支持 AES 坐标加密，防抓包篡改</p>
+</li>
+<li><p>原生支持 Redis 分布式缓存，适配集群</p>
+</li>
+<li><p>支持滑块、点选、旋转多种验证码类型</p>
+</li>
+</ul>
+<h2 id="三、AJ-Captcha-核心包说明"><a href="#三、AJ-Captcha-核心包说明" class="headerlink" title="三、AJ-Captcha 核心包说明"></a>三、AJ-Captcha 核心包说明</h2><h3 id="核心包结构"><a href="#核心包结构" class="headerlink" title="核心包结构"></a>核心包结构</h3><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">com.anji.captcha</span><br><span class="line">├─ model</span><br><span class="line">│  ├─ common   # 统一返回结果 ResponseModel / ApiReturn</span><br><span class="line">│  ├─ dto      # 前后端交互入参出参</span><br><span class="line">│  │  ├─ CaptchaReq       # 前端提交校验参数</span><br><span class="line">│  │  └─ GetCaptchaReq    # 获取验证码请求参数</span><br><span class="line">│  ├─ enums    # 验证码类型枚举（滑块/点选/旋转）</span><br><span class="line">│  └─ vo</span><br><span class="line">│     └─ CaptchaVO        # 后端二次校验核心实体</span><br><span class="line">├─ service     # 验证码生成、校验核心业务</span><br><span class="line">└─ annotation  # 启动开启注解 @EnableCaptcha</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、JeecgBoot-完整集成步骤"><a href="#四、JeecgBoot-完整集成步骤" class="headerlink" title="四、JeecgBoot 完整集成步骤"></a>四、JeecgBoot 完整集成步骤</h2><h3 id="步骤1：引入-Maven-依赖"><a href="#步骤1：引入-Maven-依赖" class="headerlink" title="步骤1：引入 Maven 依赖"></a>步骤1：引入 Maven 依赖</h3><p>在 <code>jeecg-boot-module-system</code> 模块 pom.xml 新增依赖：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- AJ-Captcha 滑块行为验证码（企业稳定版） --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.anji-plus&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-captcha&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Jeecg 自带 Redis 依赖，无需重复引入。</p>
+<h3 id="步骤2：配置-application-yml"><a href="#步骤2：配置-application-yml" class="headerlink" title="步骤2：配置 application.yml"></a>步骤2：配置 application.yml</h3><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># AJ-Captcha 滑块验证码配置</span><br><span class="line">aj:</span><br><span class="line">  captcha:</span><br><span class="line">    cache-type: redis          # 统一使用redis，兼容单机/集群，不推荐local</span><br><span class="line">    type: blockPuzzle          # blockPuzzle滑块拼图 / clickWord文字点选</span><br><span class="line">    slip-offset: 5             # 允许滑动误差像素</span><br><span class="line">    aes-status: true           # 开启AES坐标加密，防抓包篡改</span><br><span class="line">    track-enable: true         # 开启鼠标轨迹校验，防机器脚本</span><br><span class="line">    expire-seconds: 120        # 验证码过期时间</span><br><span class="line">    water-mark: \u667a\u80fd\u7ba1\u7406\u7cfb\u7edf  # Unicode水印：智能管理系统</span><br><span class="line">    jigsaw: classpath:captcha/ # 自定义拼图背景图路径</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤3：启动类开启验证码注解"><a href="#步骤3：启动类开启验证码注解" class="headerlink" title="步骤3：启动类开启验证码注解"></a>步骤3：启动类开启验证码注解</h3><p>JeecgApplication 启动类添加 <code>@EnableCaptcha</code></p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableCaptcha // 开启AJ验证码自动配置</span><br><span class="line">public class JeecgApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(JeecgApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤4：改造登录接口（核心）"><a href="#步骤4：改造登录接口（核心）" class="headerlink" title="步骤4：改造登录接口（核心）"></a>步骤4：改造登录接口（核心）</h3><p>AJ-Captcha 标准流程：<strong>前端滑动校验 → 获取加密凭证 → 登录接口二次校验凭证</strong>，禁止直接校验坐标。</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/sys&quot;)</span><br><span class="line">public class LoginController &#123;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    private CaptchaService captchaService;</span><br><span class="line"></span><br><span class="line">    @PostMapping(&quot;/login&quot;)</span><br><span class="line">    public Result&lt;LoginResult&gt; login(</span><br><span class="line">            @RequestParam String username,</span><br><span class="line">            @RequestParam String password,</span><br><span class="line">            @RequestParam String captchaVerification</span><br><span class="line">    ) &#123;</span><br><span class="line">        // 1. 滑块验证码二次校验</span><br><span class="line">        CaptchaVO captchaVO = new CaptchaVO();</span><br><span class="line">        captchaVO.setCaptchaType(&quot;blockPuzzle&quot;);</span><br><span class="line">        captchaVO.setCaptchaVerification(captchaVerification);</span><br><span class="line">        ResponseModel verifyRes = captchaService.verification(captchaVO);</span><br><span class="line"></span><br><span class="line">        // 校验失败直接拦截登录</span><br><span class="line">        if (!verifyRes.isSuccess()) &#123;</span><br><span class="line">            return Result.error(&quot;滑块验证失败，请重新滑动&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 2. 原有Jeecg登录逻辑不变</span><br><span class="line">        LoginResult loginResult = loginService.login(username, password);</span><br><span class="line">        return Result.success(loginResult);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、内置默认接口（无需手动开发）"><a href="#五、内置默认接口（无需手动开发）" class="headerlink" title="五、内置默认接口（无需手动开发）"></a>五、内置默认接口（无需手动开发）</h2><p>引入 Starter 后框架自动注册两个接口，前端直接调用：</p>
+<ul>
+<li><p><code>POST /captcha/get</code>：获取滑块验证码图片、唯一ID</p>
+</li>
+<li><p><code>POST /captcha/check</code>：前端滑动校验，返回加密凭证 <code>captchaVerification</code></p>
+</li>
+</ul>
+<h2 id="六、自定义拓展"><a href="#六、自定义拓展" class="headerlink" title="六、自定义拓展"></a>六、自定义拓展</h2><h3 id="1-自定义滑块背景图"><a href="#1-自定义滑块背景图" class="headerlink" title="1. 自定义滑块背景图"></a>1. 自定义滑块背景图</h3><p>在 <code>resources</code> 新建 <code>captcha</code> 文件夹，放入多张 PNG 图片，框架自动随机加载。</p>
+<h3 id="2-关闭轨迹校验（简易项目）"><a href="#2-关闭轨迹校验（简易项目）" class="headerlink" title="2. 关闭轨迹校验（简易项目）"></a>2. 关闭轨迹校验（简易项目）</h3><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aj:</span><br><span class="line">  captcha:</span><br><span class="line">    track-enable: false</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、Jeecg-集成常见坑-解决方案"><a href="#七、Jeecg-集成常见坑-解决方案" class="headerlink" title="七、Jeecg 集成常见坑 &amp; 解决方案"></a>七、Jeecg 集成常见坑 &amp; 解决方案</h2><h3 id="1-验证码500-Redis空指针异常"><a href="#1-验证码500-Redis空指针异常" class="headerlink" title="1. 验证码500 &#x2F; Redis空指针异常"></a>1. 验证码500 &#x2F; Redis空指针异常</h3><p>原因：未启动 Redis 或 <code>cache-type</code> 配置不对，集群环境<strong>必须使用 redis</strong>，不能用 local。</p>
+<h3 id="2-滑块一直验证失败"><a href="#2-滑块一直验证失败" class="headerlink" title="2. 滑块一直验证失败"></a>2. 滑块一直验证失败</h3><ul>
+<li><p>开启 <code>aes-status: true</code> 时，前端必须使用配套组件，不能手写简陋拖动</p>
+</li>
+<li><p>适当调大 <code>slip-offset</code> 误差至 8~10px</p>
+</li>
+<li><p>未传递鼠标轨迹数据</p>
+</li>
+</ul>
+<h3 id="3-captcha-get-接口404"><a href="#3-captcha-get-接口404" class="headerlink" title="3. &#x2F;captcha&#x2F;get 接口404"></a>3. &#x2F;captcha&#x2F;get 接口404</h3><p>启动类未添加 <code>@EnableCaptcha</code> 注解，导致自动配置失效。</p>
+<h3 id="4-登录验证码校验失败"><a href="#4-登录验证码校验失败" class="headerlink" title="4. 登录验证码校验失败"></a>4. 登录验证码校验失败</h3><p>错误做法：登录传 slideX 原始坐标；<br>正确做法：前端校验成功后传递 <strong>captchaVerification 加密串</strong> 做二次校验。</p>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><ul>
+<li><p><strong>选型优势</strong>：AJ-Captcha 替代老旧 Kaptcha，支持加密防刷、轨迹校验、Redis集群，安全性更强。</p>
+</li>
+<li><p><strong>集成四步核心</strong>：引依赖 → 配yml → 开注解 → 登录接口校验加密凭证。</p>
+</li>
+<li><p><strong>核心规范</strong>：登录只校验 <code>captchaVerification</code> 加密串，禁止校验原始坐标。</p>
+</li>
+<li><p><strong>必避坑点</strong>：必须Redis缓存、必须开启@EnableCaptcha、开启AES必须配套前端组件。</p>
+</li>
+<li><p><strong>适用场景</strong>：开箱即用，适配 JeecgBoot 企业级前后端分离项目。</p>
+</li>
+</ul>
+<blockquote>
+<p>（注：部分内容可能由 AI 生成）</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2026/07/10/JeecgBoot%20%E9%9B%86%E6%88%90%20AJ-Captcha%20%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%BB%8E%E9%9B%B6%E8%90%BD%E5%9C%B0+%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/" data-id="cuidR-dPsEwPCeB58LDHyiSzG" data-title="JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" rel="tag">滑块验证码</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AJ-Captcha-%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/">AJ-Captcha 滑块验证码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84/">Java 十六进制数组</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E4%B8%AD%E7%AD%89%E9%A2%98/">中等题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E7%AE%80%E5%8D%95%E9%A2%98/">简单题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" rel="tag">Hexo 博客搭建 技术踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" rel="tag">Java 十六进制数组处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">异质图学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" rel="tag">滑块验证码</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">Hexo 博客搭建 技术踩坑</a> <a href="/tags/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">Java 十六进制数组处理</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">异质图学习</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" style="font-size: 10px;">滑块验证码</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/07/10/JeecgBoot%20%E9%9B%86%E6%88%90%20AJ-Captcha%20%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%BB%8E%E9%9B%B6%E8%90%BD%E5%9C%B0+%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/">JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/">Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/07/Java%20%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%EF%BC%88%E5%90%88%E5%B9%B6%E3%80%81Set%E5%8E%BB%E9%87%8D%E3%80%81%E6%95%B0%E5%80%BC%E9%99%8D%E5%BA%8F%E3%80%81Stream%E9%81%BF%E5%9D%91%EF%BC%89/">Java 十六进制数组处理实战总结（合并、Set去重、数值降序、Stream避坑）</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/14/MAGNN/">【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/04/HGNN-AC/">【论文阅读】Heterogeneous Graph Neural Network via Attribute Completion</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 Mr.Wang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
