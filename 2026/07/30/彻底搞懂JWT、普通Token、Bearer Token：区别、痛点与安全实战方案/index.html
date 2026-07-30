@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案 | Mr.Wang的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在后端开发、接口鉴权、微服务架构中，Token鉴权是必不可少的核心技术。但绝大多数开发者都分不清三个核心概念：普通Token（服务端存储Token）、JWT、Bearer Token，甚至经常误以为三者是同一类技术。 本文结合实战场景，一次性讲透三者的关系、核心区别、JWT的安全争议、常见误区以及企业级落地的安全解决方案，彻底解决日常开发的鉴权疑惑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案">
+<meta property="og:url" content="https://wanghui19.github.io/2026/07/30/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82JWT%E3%80%81%E6%99%AE%E9%80%9AToken%E3%80%81Bearer%20Token%EF%BC%9A%E5%8C%BA%E5%88%AB%E3%80%81%E7%97%9B%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="Mr.Wang的个人博客">
+<meta property="og:description" content="在后端开发、接口鉴权、微服务架构中，Token鉴权是必不可少的核心技术。但绝大多数开发者都分不清三个核心概念：普通Token（服务端存储Token）、JWT、Bearer Token，甚至经常误以为三者是同一类技术。 本文结合实战场景，一次性讲透三者的关系、核心区别、JWT的安全争议、常见误区以及企业级落地的安全解决方案，彻底解决日常开发的鉴权疑惑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-30T03:04:39.000Z">
+<meta property="article:modified_time" content="2026-07-30T03:05:43.483Z">
+<meta property="article:author" content="Mr.Wang">
+<meta property="article:tag" content="token JWT">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr.Wang的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="/.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<!-- MathJax v3 LaTeX渲染 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    ams: true // 开启aligned多行公式支持
+  },
+  svg: { fontCache: 'global' },
+  startup: { typeset: true }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-ams.js">
+</script>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr.Wang的个人博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习与生活</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wanghui19.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/07/30/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82JWT%E3%80%81%E6%99%AE%E9%80%9AToken%E3%80%81Bearer%20Token%EF%BC%9A%E5%8C%BA%E5%88%AB%E3%80%81%E7%97%9B%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98%E6%96%B9%E6%A1%88/" class="article-date">
+  <time class="dt-published" datetime="2026-07-30T03:04:39.000Z" itemprop="datePublished">2026-07-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在后端开发、接口鉴权、微服务架构中，Token鉴权是必不可少的核心技术。但绝大多数开发者都分不清三个核心概念：<strong>普通Token（服务端存储Token）</strong>、<strong>JWT</strong>、<strong>Bearer Token</strong>，甚至经常误以为三者是同一类技术。</p>
+<p>本文结合实战场景，一次性讲透三者的关系、核心区别、JWT的安全争议、常见误区以及企业级落地的安全解决方案，彻底解决日常开发的鉴权疑惑。</p>
+<span id="more"></span>
+
+<h2 id="一、核心前置认知：三者根本不在同一个维度"><a href="#一、核心前置认知：三者根本不在同一个维度" class="headerlink" title="一、核心前置认知：三者根本不在同一个维度"></a>一、核心前置认知：三者根本不在同一个维度</h2><p>很多人踩坑的根源，就是混淆了「凭证格式」和「传输规范」，先记住核心定义：</p>
+<ul>
+<li><p><strong>Token</strong>：是所有身份凭证的统称，不是具体技术，所有用于登录鉴权的令牌都叫Token。</p>
+</li>
+<li><p><strong>普通Token</strong>：行业俗称，特指<strong>服务端存储型随机字符串Token</strong>，传统Session、Redis Token都属于这类。</p>
+</li>
+<li><p><strong>JWT（JSON Web Token）</strong>：Token的一种具体格式，是<strong>自包含、无状态</strong>的令牌格式。</p>
+</li>
+<li><p><strong>Bearer Token</strong>：<strong>HTTP请求的认证传输规范</strong>，和令牌格式无关，只规定Token的传递方式。</p>
+</li>
+</ul>
+<p>简单一句话：<strong>JWT和普通Token是「令牌的两种类型」，Bearer Token是「令牌的传输规则」</strong>。</p>
+<h2 id="二、普通Token-vs-JWT：核心原理与优劣对比"><a href="#二、普通Token-vs-JWT：核心原理与优劣对比" class="headerlink" title="二、普通Token vs JWT：核心原理与优劣对比"></a>二、普通Token vs JWT：核心原理与优劣对比</h2><h3 id="1-普通存储型Token（传统方案）"><a href="#1-普通存储型Token（传统方案）" class="headerlink" title="1. 普通存储型Token（传统方案）"></a>1. 普通存储型Token（传统方案）</h3><p>这是最经典、最安全的鉴权方案，核心特点是<strong>有状态、服务端存数据</strong>。</p>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li><p>用户登录成功，后端生成一串无意义的随机字符串作为Token；</p>
+</li>
+<li><p>后端将「Token-用户信息」的映射关系存入Redis、数据库或服务端Session；</p>
+</li>
+<li><p>将随机Token返回给客户端；</p>
+</li>
+<li><p>客户端请求接口携带Token，后端通过Token查询存储数据，完成身份校验。</p>
+</li>
+</ol>
+<p><strong>核心优缺点</strong>：</p>
+<p>✅ 优点：支持<strong>即时失效</strong>（用户登出、账号封禁，直接删除服务端Token即可）；Token无任何明文信息，安全性高；逻辑简单稳定。</p>
+<p>❌ 缺点：属于有状态鉴权，分布式、微服务场景下需要共享Redis存储；每次鉴权都需要查询缓存，有性能开销。</p>
+<h3 id="2-JWT自包含令牌（现代方案）"><a href="#2-JWT自包含令牌（现代方案）" class="headerlink" title="2. JWT自包含令牌（现代方案）"></a>2. JWT自包含令牌（现代方案）</h3><p>JWT是为了解决分布式无状态鉴权诞生的，核心特点是<strong>数据自包含、无需服务端存储</strong>。</p>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li><p>用户登录成功，后端将用户ID、角色、过期时间等非敏感信息打包为JSON载荷（Payload）；</p>
+</li>
+<li><p>通过密钥加密签名，生成三段式的JWT令牌；</p>
+</li>
+<li><p>将JWT返回客户端，服务端不存储任何会话信息；</p>
+</li>
+<li><p>客户端携带JWT请求接口，后端仅校验签名合法性和过期时间，无需查库查缓存，直接解析用户信息。</p>
+</li>
+</ol>
+<p><strong>核心优缺点</strong>：</p>
+<p>✅ 优点：无状态、天然适配微服务&#x2F;分布式；无需共享缓存，鉴权速度快；跨域、第三方授权场景适配性极强。</p>
+<p>❌ 缺点：默认无法主动失效；Payload仅Base64编码、不加密，明文可见；令牌字符串更长，占用请求带宽。</p>
+<h3 id="3-核心维度对比表"><a href="#3-核心维度对比表" class="headerlink" title="3. 核心维度对比表"></a>3. 核心维度对比表</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>普通随机Token</th>
+<th>JWT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据存储位置</td>
+<td>服务端Redis&#x2F;数据库</td>
+<td>令牌自身Payload中</td>
+</tr>
+<tr>
+<td>鉴权方式</td>
+<td>查询服务端存储映射</td>
+<td>校验数字签名合法性</td>
+</tr>
+<tr>
+<td>状态类型</td>
+<td>有状态</td>
+<td>无状态</td>
+</tr>
+<tr>
+<td>主动失效</td>
+<td>支持即时失效</td>
+<td>默认不支持，需额外方案</td>
+</tr>
+<tr>
+<td>信息安全性</td>
+<td>无明文信息，安全度高</td>
+<td>Payload明文可见，禁止存敏感数据</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>后台系统、需要强管控登录状态</td>
+<td>微服务、对外开放API、移动端</td>
+</tr>
+</tbody></table>
+<h2 id="三、Bearer-Token-到底是什么？"><a href="#三、Bearer-Token-到底是什么？" class="headerlink" title="三、Bearer Token 到底是什么？"></a>三、Bearer Token 到底是什么？</h2><p>很多开发者最大的误区：<strong>把Bearer Token等同于JWT</strong>，实际上二者完全不是一个概念。</p>
+<p><strong>Bearer Token是HTTP标准的认证传输规范</strong>，专门用于在请求头中传递身份令牌，标准格式如下：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer 你的Token字符串</span><br></pre></td></tr></table></figure>
+
+<p>核心含义：<strong>谁持有这个Token，谁就拥有对应接口权限</strong>。</p>
+<p>重点：Bearer前缀后面，<strong>既可以放JWT，也可以放普通随机Token</strong>，两种写法都完全合法：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 写法1：Bearer + JWT（最常用）</span><br><span class="line">Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</span><br><span class="line"></span><br><span class="line"># 写法2：Bearer + 普通随机Token（完全合法）</span><br><span class="line">Authorization: Bearer 78df234abc901</span><br></pre></td></tr></table></figure>
+
+<p>简单总结：Bearer是「运输规则」，JWT&#x2F;普通Token是「运输的货物」，这是最核心的区别。</p>
+<h2 id="四、破解JWT最大争议：Payload明文可见，还能用来鉴权吗？"><a href="#四、破解JWT最大争议：Payload明文可见，还能用来鉴权吗？" class="headerlink" title="四、破解JWT最大争议：Payload明文可见，还能用来鉴权吗？"></a>四、破解JWT最大争议：Payload明文可见，还能用来鉴权吗？</h2><p>这是绝大多数新手的核心疑问：JWT只是Base64编码，任何人都能解码看到用户信息，黑客拿到就能盗用接口，为什么还能用？</p>
+<p>这里必须纠正两个致命误区：</p>
+<h3 id="误区1：Payload明文可见-不安全、无法鉴权"><a href="#误区1：Payload明文可见-不安全、无法鉴权" class="headerlink" title="误区1：Payload明文可见&#x3D;不安全、无法鉴权"></a>误区1：Payload明文可见&#x3D;不安全、无法鉴权</h3><p>JWT的信任根基<strong>不是加密隐藏数据，而是数字签名防篡改</strong>。</p>
+<p>虽然所有人都能解码看到Payload里的用户ID、角色等信息，但<strong>没有人能修改</strong>。一旦攻击者篡改任意字段（比如修改用户ID、提升权限），JWT的签名就会和原签名不匹配，后端直接拦截拒绝请求。</p>
+<p>类比身份证：身份证信息明文可见，但有防伪水印，他人无法伪造篡改，我们只需要验证证件真伪，不需要隐藏证件信息。JWT的签名就是这个「防伪水印」。</p>
+<h3 id="误区2：JWT可以存放任意用户信息"><a href="#误区2：JWT可以存放任意用户信息" class="headerlink" title="误区2：JWT可以存放任意用户信息"></a>误区2：JWT可以存放任意用户信息</h3><p>绝对不行！Payload仅为编码、无加密，<strong>严禁存放隐私敏感数据</strong>：手机号、身份证、密码、银行卡信息一律不能放。</p>
+<p>✅ 可存放内容（公开身份标识）：用户ID、角色权限、租户ID、过期时间、设备标识；</p>
+<p>❌ 禁止存放内容（隐私敏感数据）：密码、手机号、身份证、住址、资产信息。</p>
+<h2 id="五、JWT被盗风险？企业级安全解决方案"><a href="#五、JWT被盗风险？企业级安全解决方案" class="headerlink" title="五、JWT被盗风险？企业级安全解决方案"></a>五、JWT被盗风险？企业级安全解决方案</h2><p>JWT的最大短板：被盗后攻击者可直接携带Token调用接口，且默认无法即时失效。针对这个问题，行业有一套成熟的<strong>零风险落地方案</strong>：</p>
+<h3 id="1-双Token机制（核心方案）"><a href="#1-双Token机制（核心方案）" class="headerlink" title="1. 双Token机制（核心方案）"></a>1. 双Token机制（核心方案）</h3><p>区分长短时效令牌，压缩攻击窗口期：</p>
+<ul>
+<li><p><strong>AccessToken（JWT）</strong>：短期有效，设置5-15分钟，用于日常接口鉴权，即使被盗，可用时间极短；</p>
+</li>
+<li><p><strong>RefreshToken</strong>：长期有效，存入Redis&#x2F;数据库，支持主动吊销，仅用于刷新AccessToken。</p>
+</li>
+</ul>
+<p>用户登出、账号封禁时，只需删除RefreshToken，旧的短期AccessToken过期后自动失效，完美解决无法主动失效的问题。</p>
+<h3 id="2-强制HTTPS传输"><a href="#2-强制HTTPS传输" class="headerlink" title="2. 强制HTTPS传输"></a>2. 强制HTTPS传输</h3><p>线上环境必须全站HTTPS，防止中间人抓包窃取Token，杜绝链路层泄露风险。</p>
+<h3 id="3-规范前端存储，防止XSS攻击"><a href="#3-规范前端存储，防止XSS攻击" class="headerlink" title="3. 规范前端存储，防止XSS攻击"></a>3. 规范前端存储，防止XSS攻击</h3><p>❌ 禁止存入localStorage、sessionStorage（极易被XSS脚本读取盗取）；</p>
+<p>✅ 优先存入<strong>HttpOnly Cookie</strong>，浏览器JS无法读取，从源头杜绝脚本窃取。</p>
+<h3 id="4-高阶加固方案"><a href="#4-高阶加固方案" class="headerlink" title="4. 高阶加固方案"></a>4. 高阶加固方案</h3><ul>
+<li><p>使用非对称加密RS256签发JWT，私钥签发、公钥验签，防止密钥泄露被伪造令牌；</p>
+</li>
+<li><p>Payload存入设备标识、IP绑定信息，异地登录自动拦截旧令牌；</p>
+</li>
+<li><p>高安全场景可使用JWE加密JWT，实现Payload加密隐藏。</p>
+</li>
+</ul>
+<h2 id="六、最终选型建议（直接照抄落地）"><a href="#六、最终选型建议（直接照抄落地）" class="headerlink" title="六、最终选型建议（直接照抄落地）"></a>六、最终选型建议（直接照抄落地）</h2><ol>
+<li><p><strong>后台管理系统、需要频繁踢人下线、强会话管控</strong>：优先选择「普通随机Token + Redis」方案，安全性最高；</p>
+</li>
+<li><p><strong>微服务、分布式项目、对外开放API、移动端APP</strong>：优先选择「短时JWT + 可吊销RefreshToken」双Token方案，兼顾性能与安全；</p>
+</li>
+<li><p><strong>所有Token传输场景</strong>：统一使用 Bearer 规范传递令牌，适配主流框架与OAuth2协议。</p>
+</li>
+</ol>
+<h2 id="七、全文核心总结"><a href="#七、全文核心总结" class="headerlink" title="七、全文核心总结"></a>七、全文核心总结</h2><ol>
+<li><p>Token是统称，普通Token是服务端存储型令牌，JWT是自包含无状态令牌；</p>
+</li>
+<li><p>Bearer Token是传输规范，和令牌格式无关，可适配所有Token；</p>
+</li>
+<li><p>JWT靠<strong>签名防篡改</strong>鉴权，不靠加密藏数据，仅存放非敏感身份标识；</p>
+</li>
+<li><p>JWT最大风险是被盗滥用，通过「短时AccessToken+长效可吊销RefreshToken」可完美规避；</p>
+</li>
+<li><p>没有绝对完美的方案，根据业务场景选型，搭配安全策略才是最优解。</p>
+</li>
+</ol>
+<blockquote>
+<p>（注：部分内容可能由 AI 生成）</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2026/07/30/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82JWT%E3%80%81%E6%99%AE%E9%80%9AToken%E3%80%81Bearer%20Token%EF%BC%9A%E5%8C%BA%E5%88%AB%E3%80%81%E7%97%9B%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98%E6%96%B9%E6%A1%88/" data-id="cuidLIQdGrmg7tSv6UsVF-bTS" data-title="彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token-JWT/" rel="tag">token JWT</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/07/10/JeecgBoot%20%E9%9B%86%E6%88%90%20AJ-Captcha%20%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%BB%8E%E9%9B%B6%E8%90%BD%E5%9C%B0+%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E4%B8%AD%E7%AD%89%E9%A2%98/">中等题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E7%AE%80%E5%8D%95%E9%A2%98/">简单题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" rel="tag">Hexo 博客搭建 技术踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" rel="tag">Java 十六进制数组处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/token-JWT/" rel="tag">token JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">异质图学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" rel="tag">滑块验证码</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">Hexo 博客搭建 技术踩坑</a> <a href="/tags/Java-%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">Java 十六进制数组处理</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/token-JWT/" style="font-size: 10px;">token JWT</a> <a href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">异质图学习</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" style="font-size: 10px;">滑块验证码</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/07/30/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82JWT%E3%80%81%E6%99%AE%E9%80%9AToken%E3%80%81Bearer%20Token%EF%BC%9A%E5%8C%BA%E5%88%AB%E3%80%81%E7%97%9B%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98%E6%96%B9%E6%A1%88/">彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/10/JeecgBoot%20%E9%9B%86%E6%88%90%20AJ-Captcha%20%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%BB%8E%E9%9B%B6%E8%90%BD%E5%9C%B0+%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/">JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整版）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/07/Hexo%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E5%A5%97%E7%BB%88%E6%9E%81%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%20_%20%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%20_%20%E7%BA%BF%E4%B8%8A%E5%85%BC%E5%AE%B9%EF%BC%89/">Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/07/Java%20%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%EF%BC%88%E5%90%88%E5%B9%B6%E3%80%81Set%E5%8E%BB%E9%87%8D%E3%80%81%E6%95%B0%E5%80%BC%E9%99%8D%E5%BA%8F%E3%80%81Stream%E9%81%BF%E5%9D%91%EF%BC%89/">Java 十六进制数组处理实战总结（合并、Set去重、数值降序、Stream避坑）</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/14/MAGNN/">【论文阅读】Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 Mr.Wang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
