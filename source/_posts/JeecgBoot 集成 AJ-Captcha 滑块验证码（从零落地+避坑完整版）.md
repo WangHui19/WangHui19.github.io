@@ -3,7 +3,7 @@ title: JeecgBoot 集成 AJ-Captcha 滑块验证码（从零落地+避坑完整�
 date: 2026-07-10 16:00:00
 tags: 滑块验证码
 categories: 
-    - AJ-Captcha 滑块验证码
+    - 技术笔记
 ---
 
 ## 一、前言

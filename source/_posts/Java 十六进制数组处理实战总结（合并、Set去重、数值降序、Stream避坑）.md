@@ -3,7 +3,7 @@ title: Java 十六进制数组处理实战总结（合并、Set去重、数值�
 date: 2026-07-07 10:00:00
 tags: Java 十六进制数组处理
 categories: 
-    - Java 十六进制数组
+    - 技术笔记
 ---
 
 ## 一、前言
