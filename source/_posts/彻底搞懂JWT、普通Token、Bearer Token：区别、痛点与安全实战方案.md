@@ -1,7 +1,9 @@
 ---
 title: 彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案
 date: 2026-07-30 11:04:39
-tags: token JWT
+tags: 
+    - token 
+    - JWT
 categories: 
     - 技术笔记
 ---

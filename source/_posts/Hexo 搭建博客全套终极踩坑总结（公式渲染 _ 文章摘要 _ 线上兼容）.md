@@ -1,7 +1,10 @@
 ---
 title: Hexo 搭建博客全套终极踩坑总结（公式渲染 / 文章摘要 / 线上兼容）
 date: 2026-07-07 14:00:00
-tags: Hexo 博客搭建 技术踩坑
+tags: 
+  - Hexo 
+  - 博客搭建 
+  - 技术踩坑
 categories:
   - 技术笔记
 mathjax: true
