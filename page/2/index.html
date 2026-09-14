@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Mr.Wang的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="分享技术笔记、日常心得">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mr.Wang的个人博客">
+<meta property="og:url" content="https://wanghui19.github.io/page/2/index.html">
+<meta property="og:site_name" content="Mr.Wang的个人博客">
+<meta property="og:description" content="分享技术笔记、日常心得">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Wang">
+<meta property="article:tag" content="技术,博客,学习">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr.Wang的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="/.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head>
+
+<!-- MathJax v3 LaTeX渲染 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    ams: true // 开启aligned多行公式支持
+  },
+  svg: { fontCache: 'global' },
+  startup: { typeset: true }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-ams.js">
+</script>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr.Wang的个人博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习与生活</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wanghui19.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-q2-add-two-numbers" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/27/q2-add-two-numbers/" class="article-date">
+  <time class="dt-published" datetime="2022-10-27T02:55:22.000Z" itemprop="datePublished">2022-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a>►<a class="article-category-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E4%B8%AD%E7%AD%89%E9%A2%98/">中等题</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/27/q2-add-two-numbers/">q2-两数相加</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/add-two-numbers/">https://leetcode.cn/problems/add-two-numbers/</a></p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你两个 <strong>非空</strong> 的链表，表示两个非负的整数。它们每位数字都是按照 <strong>逆序</strong> 的方式存储的，并且每个节点只能存储 <strong>一位</strong> 数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/10/27/q2-add-two-numbers/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2022/10/27/q2-add-two-numbers/" data-id="cuidiljVkyfNlx8DigR3RtKPb" data-title="q2-两数相加" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-q1-两数之和" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/24/q1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-date">
+  <time class="dt-published" datetime="2022-10-24T07:51:34.000Z" itemprop="datePublished">2022-10-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a>►<a class="article-category-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E7%AE%80%E5%8D%95%E9%A2%98/">简单题</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/24/q1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">q1-两数之和</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <!-- # q1-两数之和 -->
+<p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">https://leetcode.cn/problems/two-sum/</a></p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个整数数组 <em>nums</em> 和一个整数目标值 <em>target</em>，请你在该数组中找出 <strong>和为目标值 <em>target</em></strong>  的那 <strong>两个</strong> 整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现</p>
+<p>你可以按任意顺序返回答案。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/10/24/q1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2022/10/24/q1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" data-id="cuidhMfT9X8SQbZZc9aGQk9bU" data-title="q1-两数之和" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-我的第一篇博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time class="dt-published" datetime="2022-10-21T08:19:39.000Z" itemprop="datePublished">2022-10-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>这个博客是用来记录一下平时学到的技术知识，偶尔也会记录一些其他的东西。<br>作为一名计算机专业学生，没有一个自己的博客怎么能行！<br>博客虽然是公开的，但是也不会有多少人看，主要还是用来进行个人记录。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://wanghui19.github.io/2022/10/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cuidttk68qnFoBDUAJE15uZ6P" data-title="我的第一篇博客" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode 热题 HOT 100</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E4%B8%AD%E7%AD%89%E9%A2%98/">中等题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E7%AE%80%E5%8D%95%E9%A2%98/">简单题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MinIO/" rel="tag">MinIO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows%E8%84%9A%E6%9C%AC/" rel="tag">Windows脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/token/" rel="tag">token</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/" rel="tag">信创环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" rel="tag">十六进制数组处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">异质图学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" rel="tag">技术踩坑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" rel="tag">滑块验证码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BA%92%E9%BA%9FV10%E7%B3%BB%E7%BB%9F/" rel="tag">麒麟V10系统</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 15px;">LeetCode</a> <a href="/tags/MinIO/" style="font-size: 10px;">MinIO</a> <a href="/tags/Windows%E8%84%9A%E6%9C%AC/" style="font-size: 10px;">Windows脚本</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/token/" style="font-size: 10px;">token</a> <a href="/tags/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/" style="font-size: 20px;">信创环境</a> <a href="/tags/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86/" style="font-size: 10px;">十六进制数组处理</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">异质图学习</a> <a href="/tags/%E6%8A%80%E6%9C%AF%E8%B8%A9%E5%9D%91/" style="font-size: 10px;">技术踩坑</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%A0%81/" style="font-size: 10px;">滑块验证码</a> <a href="/tags/%E9%BA%92%E9%BA%9FV10%E7%B3%BB%E7%BB%9F/" style="font-size: 20px;">麒麟V10系统</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/09/14/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%20ARM64%20%E7%A6%BB%E7%BA%BF%20RPM%20%E9%83%A8%E7%BD%B2%20Elasticsearch%207.17.8%20%E5%8D%95%E8%8A%82%E7%82%B9/">银河麒麟 V10 ARM64 离线部署 Elasticsearch 单节点（single-node）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/14/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%20ARM64%20%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2%20MinIO%20%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">银河麒麟 V10 ARM64 离线部署 MinIO 对象存储实战</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/14/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%20ARM64%20%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2%20Redis%20%E7%94%9F%E4%BA%A7%E5%AE%9E%E6%88%98%EF%BC%88%E4%BF%A1%E5%88%9B%E9%81%BF%E5%9D%91%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89/">银河麒麟 V10 ARM64 离线部署 Redis｜信创环境踩坑实录</a>
+          </li>
+        
+          <li>
+            <a href="/2026/09/01/Windows%20%E4%B8%80%E9%94%AE%E9%87%8D%E5%90%AF%20Nginx%20%E8%84%9A%E6%9C%AC%EF%BD%9C%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%20+%20%E6%95%85%E9%9A%9C%E6%89%8B%E5%8A%A8%E9%87%8D%E5%90%AF%EF%BC%88%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B%EF%BC%89/">Windows 一键重启 Nginx 脚本｜开机自启 + 故障手动重启（保姆级教程）</a>
+          </li>
+        
+          <li>
+            <a href="/2026/07/30/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82JWT%E3%80%81%E6%99%AE%E9%80%9AToken%E3%80%81Bearer%20Token%EF%BC%9A%E5%8C%BA%E5%88%AB%E3%80%81%E7%97%9B%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98%E6%96%B9%E6%A1%88/">彻底搞懂JWT、普通Token、Bearer Token：区别、痛点与安全实战方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 Mr.Wang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
